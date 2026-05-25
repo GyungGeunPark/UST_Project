@@ -24,6 +24,11 @@ robotis_mujoco_menagerie/
 packages/livox_laser_simulation/
 packages/realsense-ros/
 
+# --- Research / design docs (local-only, not pushed) ---
+research/
+cloudxr_research/
+documents/
+
 # --- Junk / temp ---
 1.md
 1.usd
