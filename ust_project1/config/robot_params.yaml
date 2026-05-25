@@ -1,0 +1,236 @@
+# ============================================================================
+# robot_params.yaml
+# OmniGraph Teleoperation System Configuration
+#
+# 로봇 시스템 통합 설정 파일
+# MasterControlGraph에서 로드하여 사용
+#
+# Author: UST Robotics Project
+# Date: 2024
+# ============================================================================
+
+# ============================================================================
+# 로봇 경로 설정 (USD Stage Paths)
+# ============================================================================
+robot_paths:
+  # 매니퓰레이터 Articulation 경로
+  manipulator: "/World/Robot/open_manipulator_x"
+
+  # 모바일 베이스 Articulation 경로
+  mobile_base: "/World/Robot/MobileBase"
+
+  # 섀시 링크 경로 (Odometry 계산용)
+  chassis: "/World/Robot/MobileBase/base_link"
+
+  # IK Target Xform 경로
+  ik_target: "/World/IK_Target"
+
+# ============================================================================
+# IK (역운동학) 설정
+# ============================================================================
+ik_config:
+  # 설정 파일 디렉토리
+  config_dir: "/home/isaac/ust_ws/ust_project1/config"
+
+  # Lula Robot Description 파일
+  robot_description: "open_x1_des.yaml"
+
+  # URDF 파일
+  urdf: "open_manipulator_x.urdf"
+
+  # 엔드이펙터 프레임 이름
+  end_effector_frame: "end_effector_link"
+
+  # IK Target 초기 위치 [x, y, z] (미터)
+  initial_target_position: [0.2, 0.0, 0.15]
+
+  # 작업 공간 제한 (로봇 베이스 기준, 미터)
+  workspace:
+    min_radius: 0.08    # 최소 수평 도달 거리
+    max_radius: 0.38    # 최대 수평 도달 거리
+    min_height: -0.05   # 최소 높이
+    max_height: 0.40    # 최대 높이
+
+  # 제어 조인트 목록
+  joints:
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+
+# ============================================================================
+# 차동 구동 (Differential Drive) 설정
+# ============================================================================
+differential_drive:
+  # 바퀴 반경 (미터)
+  wheel_radius: 0.05
+
+  # 바퀴 간 거리 (미터)
+  wheel_distance: 0.3
+
+  # 바퀴 조인트 이름
+  left_wheel_joint: "left_wheel_joint"
+  right_wheel_joint: "right_wheel_joint"
+
+  # 속도 제한
+  max_linear_velocity: 1.0    # m/s
+  max_angular_velocity: 2.0   # rad/s
+
+  # Odometry 프레임 ID
+  odom_frame_id: "odom"
+  base_frame_id: "base_link"
+
+# ============================================================================
+# 그리퍼 설정
+# ============================================================================
+gripper:
+  # 그리퍼 조인트 이름
+  joint_name: "gripper_left_joint"
+
+  # 조인트 위치 범위 (미터)
+  min_position: -0.01   # 완전 닫힘
+  max_position: 0.02    # 완전 열림
+
+  # 그리퍼 속도 (m/s)
+  speed: 0.05
+
+  # Mimic 조인트 (자동 동기화)
+  mimic_joint: "gripper_right_joint"
+
+# ============================================================================
+# ROS2 설정
+# ============================================================================
+ros2:
+  # Domain ID (환경 변수 사용)
+  domain_id_env_var: true
+
+  # 토픽 네임스페이스 (빈 문자열이면 네임스페이스 없음)
+  namespace: ""
+
+  # 표준 토픽
+  topics:
+    cmd_vel: "/cmd_vel"
+    odom: "/odom"
+    joint_states: "/joint_states"
+    joint_command: "/joint_command"
+    tf: "/tf"
+    clock: "/clock"
+
+  # Quest2ROS 토픽
+  quest2ros:
+    right_hand_pose: "/q2r_right_hand_pose"
+    left_hand_pose: "/q2r_left_hand_pose"
+    right_hand_twist: "/q2r_right_hand_twist"
+    left_hand_twist: "/q2r_left_hand_twist"
+    right_hand_inputs: "/q2r_right_hand_inputs"
+    left_hand_inputs: "/q2r_left_hand_inputs"
+    right_haptic: "/q2r_right_hand_haptic_feedback"
+    left_haptic: "/q2r_left_hand_haptic_feedback"
+
+# ============================================================================
+# 텔레오퍼레이션 설정
+# ============================================================================
+teleoperation:
+  # 좌표 변환 (Quest → Isaac)
+  coordinate_transform:
+    enabled: true
+    scale: 1.0
+    offset: [0.0, 0.0, 0.0]
+
+  # 클러치 설정 (중지 트리거)
+  clutch:
+    enabled: true
+    threshold: 0.5    # 이 값 이상일 때 클러치 활성화
+
+  # 컨트롤러 매핑
+  right_controller:
+    position: "ik_target"          # 위치 → IK 타겟
+    rotation: "ik_target"          # 회전 → IK 타겟 (4축 로봇 제한)
+    index_trigger: "gripper"       # 검지 트리거 → 그리퍼
+    middle_trigger: "clutch"       # 중지 트리거 → 클러치
+    button_a: "home_position"      # A 버튼 → 홈 위치
+    button_b: "ready_position"     # B 버튼 → 준비 자세
+
+  left_controller:
+    thumbstick: "mobile_base"      # 썸스틱 → 모바일 이동
+    index_trigger: "speed_scale"   # 검지 트리거 → 속도 조절
+    button_x: "emergency_stop"     # X 버튼 → 긴급 정지
+    button_y: "mode_switch"        # Y 버튼 → 모드 전환
+
+  # 속도 스케일
+  speed_scale:
+    min: 0.1    # 트리거 미누름 시 (느림)
+    max: 1.0    # 트리거 완전 누름 시 (빠름)
+
+  # 데드존
+  deadzone:
+    thumbstick: 0.1
+    trigger: 0.05
+
+# ============================================================================
+# 햅틱 피드백 설정
+# ============================================================================
+haptic_feedback:
+  enabled: true
+
+  # 피드백 패턴
+  patterns:
+    collision:
+      frequency: 500      # Hz
+      amplitude: 1.0      # 0.0 ~ 1.0
+      duration: 0.1       # seconds
+
+    grip_contact:
+      frequency: 150
+      amplitude: 0.4
+      duration: 0.05
+
+    workspace_limit:
+      frequency: 300
+      amplitude: 0.6
+      duration: 0.2
+
+    success:
+      frequency: 200
+      amplitude: 0.6
+      duration: 0.2
+
+    error:
+      frequency: 400
+      amplitude: 0.9
+      duration: 0.3
+
+# ============================================================================
+# 그래프 활성화 설정
+# ============================================================================
+graphs:
+  # IK 제어 그래프
+  enable_ik: true
+
+  # 차동 구동 그래프
+  enable_diff_drive: true
+
+  # 텔레오퍼레이션 그래프
+  enable_teleoperation: true
+
+  # 텔레오퍼레이션 내 모바일 제어
+  enable_mobile_in_teleop: true
+
+  # 텔레오퍼레이션 내 그리퍼 제어
+  enable_gripper_in_teleop: true
+
+# ============================================================================
+# 디버그 설정
+# ============================================================================
+debug:
+  # 상세 로그 출력
+  verbose: true
+
+  # IK 해 시각화
+  visualize_ik: false
+
+  # 작업 공간 시각화
+  visualize_workspace: false
+
+  # 토픽 로깅
+  log_topics: false

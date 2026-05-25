@@ -1,0 +1,34 @@
+# Isaac Sim LLM Robot Control - Dependencies
+
+# Web Framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+websockets>=11.0
+
+# LLM APIs
+openai>=1.0.0
+anthropic>=0.18.0
+
+# Configuration
+pyyaml>=6.0
+
+# Data validation
+pydantic>=2.0
+
+# Numerical computing
+numpy>=1.24.0
+
+# HTTP client (for LLM APIs)
+httpx>=0.24.0
+
+# Optional: Keyboard input for emergency stop
+# pynput>=1.7.0
+
+# Testing
+pytest>=7.0
+pytest-asyncio>=0.21.0
+
+# Development
+# black
+# flake8
+# mypy

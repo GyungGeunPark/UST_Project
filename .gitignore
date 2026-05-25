@@ -1,0 +1,138 @@
+# =========================================================================
+# ust_ws .gitignore
+# Strategy: include active research code + docs, exclude external SDKs,
+# model weights, build artifacts, and runtime/debug dumps.
+# =========================================================================
+
+# --- Large / external assets (87GB+) ---
+models/
+screanshot/
+debug_file/
+old_docu/
+openxr/run/
+openxr/var/
+CloudXR/
+Tools/
+
+# --- External cloned repos (have their own upstream) ---
+openvla/
+XRoboToolkit-PC-Service/
+XRoboToolkit-PC-Service-Pybind/
+XRoboToolkit-PC-Service.win/
+rbpodo_ros2/
+robotis_mujoco_menagerie/
+packages/livox_laser_simulation/
+packages/realsense-ros/
+
+# --- Junk / temp ---
+1.md
+1.usd
+*.tmp
+*.bak
+*.orig
+
+# --- Large archives ---
+*.zip
+*.tar.gz
+*.tgz
+*.tar
+*.7z
+*.rar
+
+# --- Claude / IDE local ---
+.claude/
+.vscode/
+.idea/
+*.code-workspace
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.venv/
+venv/
+env/
+build/
+dist/
+*.whl
+
+# --- Node / JS / web ---
+node_modules/
+*.log
+npm-debug.log*
+yarn-error.log
+.next/
+out/
+
+# --- ROS2 build artifacts ---
+install/
+log/
+**/build/
+**/install/
+**/log/
+
+# --- Datasets / training outputs ---
+datasets/
+data/demos/
+data/raw/
+checkpoints/
+runs/
+wandb/
+outputs/
+output/
+videos/
+
+# --- HDF5 / weight files ---
+*.hdf5
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.bin
+*.tflite
+
+# --- Compiled extensions ---
+*.so
+*.dylib
+*.dll
+*.pyd
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Logs / dumps ---
+*.dmp
+*.dump
+**/last_import_error.log
+
+# --- Secrets / local config overrides ---
+.env
+.env.local
+*.secret
+*_secret.json
+
+# --- Sensor / capture dumps ---
+*.bag
+*.mcap
+*.rosbag2
+*.bag2
+
+# --- Documentation builds ---
+docs/_build/
+docs/generated/
+
+# --- Allowlist (must explicitly un-ignore) ---
+!.gitignore
+!.gitattributes

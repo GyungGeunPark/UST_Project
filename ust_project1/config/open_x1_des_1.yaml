@@ -1,0 +1,28 @@
+# openmanipulator_descriptor.yaml
+api_version: 1.0
+
+# Configuration Space - 4축 암 관절만 포함
+cspace:
+  - joint1
+  - joint2
+  - joint3
+  - joint4
+
+# 루트 링크 (URDF와 일치)
+root_link: link1
+
+# 기본 관절 위치 (라디안)
+default_q: [0.0, 0.0, 0.0, 0.0]
+
+# 그리퍼 관절을 Fixed로 설정 (Lula에서 제외)
+cspace_to_urdf_rules:
+  - {name: gripper, rule: fixed, default: 0.01}
+  # 미믹 조인트가 있는 경우
+  - {name: gripper_sub, rule: fixed, default: 0.01}
+
+# 관절 가속도/저크 제한
+acceleration_limits: [10.0, 10.0, 10.0, 10.0]
+jerk_limits: [500.0, 500.0, 500.0, 500.0]
+
+# 충돌 구체 (선택사항)
+collision_spheres: []

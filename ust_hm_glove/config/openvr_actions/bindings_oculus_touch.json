@@ -1,0 +1,61 @@
+{
+  "_comment": [
+    "Oculus Touch fallback binding for ust_hm_glove (research/40 §5.2).",
+    "",
+    "Why this exists:",
+    "  Virtual Desktop emulates the PICO 4 Ultra Touch controllers as",
+    "  oculus_touch (controller_type=oculus_touch).  Without an explicit",
+    "  oculus_touch binding entry in actions.json::default_bindings,",
+    "  SteamVR auto-remaps bindings_index.json (knuckles) to oculus_touch",
+    "  and SILENTLY SKIPs the /input/skeleton/* and /input/finger/* paths",
+    "  because those paths do not exist on the oculus_touch profile.",
+    "",
+    "  vrserver.txt trace (2026-05-06 12:05:47):",
+    "    [Remapping] Beginning remapping from knuckles to oculus_touch.",
+    "    [Remapping] Skipped remapping of path::mode: /user/hand/left/input/skeleton/left::",
+    "    [Remapping] Skipped remapping of path::mode: /user/hand/left/input/finger/index::trigger",
+    "    ... (all 10 finger paths skipped)",
+    "",
+    "  By providing this explicit oculus_touch binding we keep trigger +",
+    "  grip alive on the VD-emulated PICO Touch controllers.  Skeleton +",
+    "  per-finger curl come from the parallel UDCAP knuckles set",
+    "  (bindings_index.json on LHR-E227UD40/41) -- those channels are",
+    "  unaffected by this file because oculus_touch profile does not have",
+    "  them.",
+    "",
+    "Both grip and trigger are bound as 'mode: trigger' with 'pull' input",
+    "(matching the trigger/grip shape on oculus_touch -- they expose only",
+    "analog pull, not force_sensor)."
+  ],
+  "bindings": {
+    "/actions/teleop": {
+      "sources": [
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/trigger_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/trigger"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/trigger_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/grip_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/grip"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/grip_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/grip"
+        }
+      ]
+    }
+  },
+  "controller_type": "oculus_touch",
+  "description": "PICO Touch (via Virtual Desktop) fallback: trigger + grip only (skeleton + 5-finger curl come from the parallel UDCAP knuckles binding)",
+  "name": "UST Teleop -- oculus_touch fallback (trigger/grip)",
+  "options": {},
+  "simulated_actions": []
+}

@@ -1,0 +1,46 @@
+{
+  "_comment": "Auto-generated.  Virtual Desktop Full Body segments were auto-mapped (hips/*_arm_lower/*_lower_leg).  For LHR-* physical trackers, replace each 'TODO' with one of: waist, left_ankle, right_ankle, left_forearm, right_forearm.",
+  "hmd": "auto",
+  "trackers": {
+    "hips": {
+      "role": "waist",
+      "steamvr_role": "TrackerRole_Waist"
+    },
+    "chest": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "left_arm_upper": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "left_arm_lower": {
+      "role": "left_forearm",
+      "steamvr_role": "TrackerRole_LeftElbow"
+    },
+    "right_arm_upper": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "right_arm_lower": {
+      "role": "right_forearm",
+      "steamvr_role": "TrackerRole_RightElbow"
+    },
+    "left_lower_leg": {
+      "role": "left_ankle",
+      "steamvr_role": "TrackerRole_LeftFoot"
+    },
+    "left_foot_transverse": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "right_lower_leg": {
+      "role": "right_ankle",
+      "steamvr_role": "TrackerRole_RightFoot"
+    },
+    "right_foot_transverse": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "_comment": [
+    "PICO Connect (prism driver) tracker binding template.",
+    "",
+    "Use this when streaming the PICO 4 Ultra (or PICO 4 Pro) into SteamVR via",
+    "PICO Connect with PICO Motion Trackers attached -- i.e. the 'PICO Connect",
+    "-> SteamVR -> PC -> Isaac Lab' pipeline introduced in 9.37.  Pass",
+    "  --vr_runtime pico_connect",
+    "to ust_ws.ust_hm_glove.scripts.run_teleop and the device picks this file",
+    "automatically (overriding the default tracker_binding.json which is",
+    "calibrated for Virtual Desktop body segments).",
+    "",
+    "Generating real serials:",
+    "  1. Launch PICO Connect on PC, put the headset on, pair every Motion",
+    "     Tracker (PMT-#) to the headset and confirm 'PICO Connect Streaming",
+    "     Service' is running (Task Manager).  SteamVR > Manage Add-Ons:",
+    "       prism                            ON   (PICO Connect)",
+    "       Virtual Desktop Streamer (Quest) OFF  (avoid driver conflict)",
+    "       udcap                            ON   (only if using UDCAP gloves)",
+    "  2. Run:",
+    "       python -X utf8 -m ust_ws.ust_hm_glove.scripts.enumerate_trackers \\",
+    "         --out ust_ws/ust_hm_glove/config/tracker_binding_pico_connect.json",
+    "     The script auto-detects PICO trackers from their manufacturer/model",
+    "     strings and emits a populated 'trackers' map -- this template is",
+    "     overwritten in place.",
+    "  3. Verify each PICO Motion Tracker maps to the body part you actually",
+    "     wear it on (waist / left_forearm / right_forearm / left_ankle /",
+    "     right_ankle).  PICO ships trackers without a fixed role assignment;",
+    "     the user MUST inspect their physical mounting before saving.",
+    "",
+    "Serial conventions observed in PICO Connect 5.14+:",
+    "  * PICO Motion Tracker (PMT)        : serial like 'PMT_<14-hex-char>'",
+    "  * PICO Body Tracker  (legacy SDK)  : serial like 'PICOBT_<...>'",
+    "  * Manufacturer string              : 'PICO' or 'Pico Immersive Pte. Ltd.'",
+    "  * Model strings                    : 'PICO Motion Tracker', 'PMT-1.0'",
+    "",
+    "If you only have a single hips tracker, leave the unused entries empty",
+    "({}) and they will be skipped by SteamVRSampler.",
+    "",
+    "steamvr_role values (informational; SteamVRSampler uses 'role' for binding):",
+    "  TrackerRole_Waist        - hips/waist tracker",
+    "  TrackerRole_LeftElbow    - left forearm/elbow",
+    "  TrackerRole_RightElbow   - right forearm/elbow",
+    "  TrackerRole_LeftFoot     - left ankle/foot",
+    "  TrackerRole_RightFoot    - right ankle/foot",
+    "  TrackerRole_Chest        - chest tracker (rare)"
+  ],
+  "hmd": "auto",
+  "trackers": {
+    "PMT_REPLACE_ME_WAIST": {
+      "role": "waist",
+      "steamvr_role": "TrackerRole_Waist"
+    },
+    "PMT_REPLACE_ME_LEFT_FOREARM": {
+      "role": "left_forearm",
+      "steamvr_role": "TrackerRole_LeftElbow"
+    },
+    "PMT_REPLACE_ME_RIGHT_FOREARM": {
+      "role": "right_forearm",
+      "steamvr_role": "TrackerRole_RightElbow"
+    },
+    "PMT_REPLACE_ME_LEFT_ANKLE": {
+      "role": "left_ankle",
+      "steamvr_role": "TrackerRole_LeftFoot"
+    },
+    "PMT_REPLACE_ME_RIGHT_ANKLE": {
+      "role": "right_ankle",
+      "steamvr_role": "TrackerRole_RightFoot"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Sample Client - React | CloudXR.js SDK Documentation - v6.0.1-beta</title><meta name="description" content="Documentation for CloudXR.js SDK Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">CloudXR.js SDK Documentation - v6.0.1-beta</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">CloudXR.js SDK Documentation</a></li><li><a href="Getting_Started.html">Getting Started</a></li><li><a href="Getting_Started.Sample_Client_-_React.html">Sample Client - React</a></li></ul></div><div class="tsd-panel tsd-typography"><a id="react-three-fiber-example" class="tsd-anchor"></a><h1 class="tsd-anchor-link">React Three Fiber Example<a href="#react-three-fiber-example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1><p>This is a comprehensive CloudXR.js React Three Fiber example application that demonstrates how to integrate CloudXR streaming with modern React development patterns. This example showcases the power of combining CloudXR.js with React Three Fiber, React Three XR, and React Three UIKit to create immersive XR experiences with rich 3D user interfaces.</p>
+<blockquote>
+<p>NOTE: This example is not meant to be used for production.</p>
+</blockquote>
+<a id="overview" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Overview<a href="#overview" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>This example showcases the integration of CloudXR.js with the React Three Fiber ecosystem, providing:</p>
+<ul>
+<li><strong>React Three Fiber Integration</strong>: Seamless integration with Three.js through React components</li>
+<li><strong>React Three XR</strong>: WebXR session management with React hooks and state management</li>
+<li><strong>React Three UIKit</strong>: Rich 3D user interface components for VR/AR experiences</li>
+<li><strong>CloudXR Streaming</strong>: Real-time streaming of XR content from a CloudXR server</li>
+<li><strong>Modern React Patterns</strong>: Hooks, context, and component-based architecture</li>
+<li><strong>Dual UI System</strong>: 2D HTML interface for configuration and 3D VR interface for interaction</li>
+</ul>
+<a id="quick-start" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Quick Start<a href="#quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Choose <strong>Option A</strong> (Docker) for a quick containerized setup, or <strong>Option B</strong> (Local) for development with hot reloading.</p>
+<a id="option-a-docker-recommended-for-quick-start" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Option A: Docker (Recommended for Quick Start)<a href="#option-a-docker-recommended-for-quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="prerequisites" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Prerequisites<a href="#prerequisites" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a> installed and running</li>
+</ul>
+<a id="build-and-run" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Build and Run<a href="#build-and-run" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Build and run the sample client in a container:</p>
+<pre><code class="bash"><span class="hl-0"># Build the Docker image (for react example)</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">build</span><span class="hl-2"> </span><span class="hl-4">-t</span><span class="hl-2"> </span><span class="hl-3">cloudxr-react-sample</span><span class="hl-2"> </span><span class="hl-4">--build-arg</span><span class="hl-2"> </span><span class="hl-3">EXAMPLE_NAME=react</span><span class="hl-2"> </span><span class="hl-3">.</span><br/><br/><span class="hl-0"># Run the container</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-4">-d</span><span class="hl-2"> </span><span class="hl-4">--name</span><span class="hl-2"> </span><span class="hl-3">cloudxr-react-sample</span><span class="hl-2"> </span><span class="hl-4">-p</span><span class="hl-2"> </span><span class="hl-3">8080:80</span><span class="hl-2"> </span><span class="hl-4">-p</span><span class="hl-2"> </span><span class="hl-3">8443:443</span><span class="hl-2"> </span><span class="hl-3">cloudxr-react-sample</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Open <code>http://localhost:8080</code> (HTTP) or <code>https://localhost:8443</code> (HTTPS) in your browser.</p>
+<blockquote>
+<p><strong>Note</strong>: When using HTTPS, you'll need to accept the self-signed certificate warning in your browser.</p>
+</blockquote>
+<p>To stop and remove the container:</p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">stop</span><span class="hl-2"> </span><span class="hl-3">cloudxr-react-sample</span><span class="hl-2"> &amp;&amp; </span><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">rm</span><span class="hl-2"> </span><span class="hl-3">cloudxr-react-sample</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="option-b-local-development" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Option B: Local Development<a href="#option-b-local-development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="prerequisites-1" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Prerequisites<a href="#prerequisites-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li>Node.js (v20 or higher)</li>
+<li>A CloudXR server running and accessible</li>
+<li>A WebXR-compatible device (VR headset, AR device)</li>
+</ul>
+<a id="build-and-run-1" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Build and Run<a href="#build-and-run-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ol>
+<li>
+<p><strong>Navigate to the example folder</strong></p>
+<pre><code class="bash"><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">react</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Install Dependencies</strong></p>
+<pre><code class="bash"><span class="hl-0"># For this early access release, please run the following to install SDK from the given tarball. This step will not be needed when SDK is publicly accessible.</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">../nvidia-cloudxr-6.0.1-beta.tgz</span><br/><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Build the Application</strong></p>
+<pre><code class="bash"><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">build</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Start Development Server</strong></p>
+<pre><code class="bash"><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev-server</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Open in Browser</strong></p>
+<ul>
+<li>Navigate to <code>http://localhost:8080</code> (or the port shown in terminal)</li>
+<li>For desktop browsers, IWER (Immersive Web Emulator Runtime) will automatically load to emulate a Meta Quest 3 headset</li>
+</ul>
+</li>
+</ol>
+<a id="basic-usage" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Basic Usage<a href="#basic-usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>
+<p><strong>Configure Connection</strong></p>
+<ul>
+<li>Enter your CloudXR server IP address</li>
+<li>Set the port (default: 49100)</li>
+<li>Select AR or VR immersive mode</li>
+</ul>
+</li>
+<li>
+<p><strong>Adjust Settings</strong> (Optional)</p>
+<ul>
+<li>Configure per-eye resolution (perEyeWidth and perEyeHeight, must be multiples of 16)</li>
+<li>Set target frame rate and bitrate</li>
+<li>Adjust XR reference space</li>
+</ul>
+</li>
+<li>
+<p><strong>Start Streaming</strong></p>
+<ul>
+<li>Click &quot;CONNECT&quot; to initiate the XR session</li>
+<li>Grant XR permissions when prompted</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>NOTE: In order to connect to an actual server and start streaming, you need:</p>
+<ul>
+<li>A CloudXR server running and accessible</li>
+<li>A WebXR-compatible device (VR/AR headset) or desktop browser (IWER loads automatically for emulation)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Quick Start Tip:</strong> For the fastest way to get a server running, try <a href="https://github.com/NVIDIA/cloudxr-lovr-sample">LÖVR</a> - a lightweight VR framework that's great for testing your CloudXR.js client setup.</p>
+</blockquote>
+<a id="technical-architecture" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Technical Architecture<a href="#technical-architecture" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="core-components" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Core Components<a href="#core-components" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="apptsx" class="tsd-anchor"></a><h4 class="tsd-anchor-link"><code>App.tsx</code><a href="#apptsx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Main React application component managing:</p>
+<ul>
+<li>XR store configuration and session state</li>
+<li>CloudXR component integration</li>
+<li>2D UI management and event handling</li>
+<li>Error handling and capability checking</li>
+<li>React Three Fiber Canvas setup</li>
+</ul>
+<a id="cloudxrcomponenttsx" class="tsd-anchor"></a><h4 class="tsd-anchor-link"><code>CloudXRComponent.tsx</code><a href="#cloudxrcomponenttsx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Handles the core CloudXR streaming functionality:</p>
+<ul>
+<li>CloudXR session lifecycle management</li>
+<li>WebXR session event handling</li>
+<li>WebGL state management and render target preservation</li>
+<li>Frame-by-frame rendering loop with pose tracking</li>
+<li>Integration with Three.js WebXRManager</li>
+</ul>
+<a id="cloudxr2duitsx" class="tsd-anchor"></a><h4 class="tsd-anchor-link"><code>CloudXR2DUI.tsx</code><a href="#cloudxr2duitsx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Manages the 2D HTML interface:</p>
+<ul>
+<li>Form field management and localStorage persistence</li>
+<li>Proxy configuration based on protocol</li>
+<li>Event listener management and cleanup</li>
+<li>Error handling and user feedback</li>
+<li>Configuration validation and updates</li>
+</ul>
+<a id="cloudxruitsx-3d-ui" class="tsd-anchor"></a><h4 class="tsd-anchor-link"><code>CloudXRUI.tsx</code> (3D UI)<a href="#cloudxruitsx-3d-ui" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Renders the in-VR user interface:</p>
+<ul>
+<li>React Three UIKit components for 3D UI</li>
+<li>Interactive control buttons with hover effects</li>
+<li>Server information and status display</li>
+<li>Event handler integration</li>
+</ul>
+<a id="development" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Development<a href="#development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="project-structure" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Project Structure<a href="#project-structure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-1">react/</span><br/><span class="hl-1">├──</span><span class="hl-2"> </span><span class="hl-3">src/</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">App.tsx</span><span class="hl-2">              </span><span class="hl-0"># Main React application</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">CloudXRComponent.tsx</span><span class="hl-2"> </span><span class="hl-0"># CloudXR streaming component</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">CloudXR2DUI.tsx</span><span class="hl-2">      </span><span class="hl-0"># 2D UI management class</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">CloudXRUI.tsx</span><span class="hl-2">        </span><span class="hl-0"># 3D VR UI component</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">index.tsx</span><span class="hl-2">            </span><span class="hl-0"># React app entry point</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">└──</span><span class="hl-2"> </span><span class="hl-3">index.html</span><span class="hl-2">           </span><span class="hl-0"># HTML template</span><br/><span class="hl-1">├──</span><span class="hl-2"> </span><span class="hl-3">public/</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">play-circle.svg</span><span class="hl-2">                   </span><span class="hl-0"># Play button icon (Heroicons)</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">stop-circle.svg</span><span class="hl-2">                   </span><span class="hl-0"># Stop button icon (Heroicons)</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">├──</span><span class="hl-2"> </span><span class="hl-3">arrow-uturn-left.svg</span><span class="hl-2">              </span><span class="hl-0"># Reset button icon (Heroicons)</span><br/><span class="hl-1">│</span><span class="hl-2">   </span><span class="hl-3">└──</span><span class="hl-2"> </span><span class="hl-3">arrow-left-start-on-rectangle.svg</span><span class="hl-2"> </span><span class="hl-0"># Disconnect button icon (Heroicons)</span><br/><span class="hl-1">├──</span><span class="hl-2"> </span><span class="hl-3">package.json</span><span class="hl-2">             </span><span class="hl-0"># Dependencies and scripts</span><br/><span class="hl-1">├──</span><span class="hl-2"> </span><span class="hl-3">webpack.common.js</span><span class="hl-2">        </span><span class="hl-0"># Webpack configuration</span><br/><span class="hl-1">├──</span><span class="hl-2"> </span><span class="hl-3">webpack.dev.js</span><span class="hl-2">           </span><span class="hl-0"># Development webpack config</span><br/><span class="hl-1">├──</span><span class="hl-2"> </span><span class="hl-3">webpack.prod.js</span><span class="hl-2">          </span><span class="hl-0"># Production webpack config</span><br/><span class="hl-1">└──</span><span class="hl-2"> </span><span class="hl-3">tsconfig.json</span><span class="hl-2">            </span><span class="hl-0"># TypeScript configuration</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="react-three-fiber-integration" class="tsd-anchor"></a><h2 class="tsd-anchor-link">React Three Fiber Integration<a href="#react-three-fiber-integration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="xr-store-configuration" class="tsd-anchor"></a><h3 class="tsd-anchor-link">XR Store Configuration<a href="#xr-store-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>The application uses React Three XR's store for XR session management:</p>
+<pre><code class="javascript"><span class="hl-4">const</span><span class="hl-2"> </span><span class="hl-6">store</span><span class="hl-2"> = </span><span class="hl-1">createXRStore</span><span class="hl-2">({</span><br/><span class="hl-2">  </span><span class="hl-5">foveation:</span><span class="hl-2"> </span><span class="hl-7">0</span><span class="hl-2">,</span><br/><span class="hl-2">  </span><span class="hl-5">emulate:</span><span class="hl-2"> { </span><span class="hl-5">syntheticEnvironment:</span><span class="hl-2"> </span><span class="hl-4">false</span><span class="hl-2"> },</span><br/><span class="hl-2">});</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="canvas-setup" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Canvas Setup<a href="#canvas-setup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>React Three Fiber Canvas with WebXR integration:</p>
+<pre><code class="typescript"><span class="hl-2">&lt;</span><span class="hl-5">Canvas</span><span class="hl-2"> </span><span class="hl-5">events</span><span class="hl-2">={</span><span class="hl-5">noEvents</span><span class="hl-2">} </span><span class="hl-5">gl</span><span class="hl-2">={{ </span><span class="hl-8">preserveDrawingBuffer</span><span class="hl-2">: </span><span class="hl-4">true</span><span class="hl-2"> }}&gt;</span><br/><span class="hl-2">  &lt;</span><span class="hl-6">XR</span><span class="hl-2"> </span><span class="hl-5">store</span><span class="hl-2">={</span><span class="hl-5">store</span><span class="hl-2">}&gt;</span><br/><span class="hl-2">    &lt;</span><span class="hl-5">CloudXRComponent</span><span class="hl-2"> </span><span class="hl-5">config</span><span class="hl-2">={</span><span class="hl-5">config</span><span class="hl-2">} </span><span class="hl-5">applicationName</span><span class="hl-2">=</span><span class="hl-3">&quot;My App&quot;</span><span class="hl-2"> /&gt;</span><br/><span class="hl-2">    &lt;</span><span class="hl-5">CloudXR3DUI</span><span class="hl-2"> </span><span class="hl-5">onAction1</span><span class="hl-2">={</span><span class="hl-5">handleAction1</span><span class="hl-2">} /&gt;</span><br/><span class="hl-2">  &lt;/</span><span class="hl-6">XR</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;/</span><span class="hl-5">Canvas</span><span class="hl-2">&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="custom-render-loop" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Custom Render Loop<a href="#custom-render-loop" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>The CloudXR component uses <code>useFrame</code> for custom rendering:</p>
+<pre><code class="typescript"><span class="hl-1">useFrame</span><span class="hl-2">((</span><span class="hl-5">state</span><span class="hl-2">, </span><span class="hl-5">delta</span><span class="hl-2">) </span><span class="hl-4">=&gt;</span><span class="hl-2"> {</span><br/><span class="hl-2">  </span><span class="hl-9">if</span><span class="hl-2"> (</span><span class="hl-5">webXRManager</span><span class="hl-2">.</span><span class="hl-5">isPresenting</span><span class="hl-2"> &amp;&amp; </span><span class="hl-5">session</span><span class="hl-2">) {</span><br/><span class="hl-2">    </span><span class="hl-0">// CloudXR rendering logic</span><br/><span class="hl-2">    </span><span class="hl-5">cxrSession</span><span class="hl-2">.</span><span class="hl-1">sendTrackingStateToServer</span><span class="hl-2">(</span><span class="hl-5">timestamp</span><span class="hl-2">, </span><span class="hl-5">xrFrame</span><span class="hl-2">);</span><br/><span class="hl-2">    </span><span class="hl-5">cxrSession</span><span class="hl-2">.</span><span class="hl-1">render</span><span class="hl-2">(</span><span class="hl-5">timestamp</span><span class="hl-2">, </span><span class="hl-5">xrFrame</span><span class="hl-2">, </span><span class="hl-5">layer</span><span class="hl-2">);</span><br/><span class="hl-2">  }</span><br/><span class="hl-2">}, -</span><span class="hl-7">1000</span><span class="hl-2">);</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="3d-user-interface" class="tsd-anchor"></a><h2 class="tsd-anchor-link">3D User Interface<a href="#3d-user-interface" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="react-three-uikit-components" class="tsd-anchor"></a><h3 class="tsd-anchor-link">React Three UIKit Components<a href="#react-three-uikit-components" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>The 3D UI uses React Three UIKit for modern VR/AR interfaces:</p>
+<ul>
+<li><strong>Container</strong>: Layout and positioning components</li>
+<li><strong>Text</strong>: 3D text rendering with custom fonts</li>
+<li><strong>Button</strong>: Interactive buttons with hover effects</li>
+<li><strong>Image</strong>: Texture-based image display</li>
+<li><strong>Root</strong>: Main UI container with pixel-perfect rendering</li>
+</ul>
+<a id="ui-positioning" class="tsd-anchor"></a><h3 class="tsd-anchor-link">UI Positioning<a href="#ui-positioning" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>3D UI elements are positioned in world space:</p>
+<pre><code class="typescript"><span class="hl-2">&lt;</span><span class="hl-5">group</span><span class="hl-2"> </span><span class="hl-5">position</span><span class="hl-2">={</span><span class="hl-5">[</span><span class="hl-7">1.8</span><span class="hl-5">, </span><span class="hl-2">-</span><span class="hl-7">0.5</span><span class="hl-5">, </span><span class="hl-2">-</span><span class="hl-7">1.3</span><span class="hl-5">]} rotation={[</span><span class="hl-7">0</span><span class="hl-5">, </span><span class="hl-2">-</span><span class="hl-7">0.3</span><span class="hl-5">, </span><span class="hl-7">0</span><span class="hl-5">]}&gt;</span><br/><span class="hl-5">  &lt;Root pixelSize={0.001} width={1920} height={1440}&gt;</span><br/><span class="hl-5">    {</span><span class="hl-0">/* UI components */</span><span class="hl-5">}</span><br/><span class="hl-5">  &lt;/Root&gt;</span><br/><span class="hl-5">&lt;/group&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="webgl-state-tracking" class="tsd-anchor"></a><h3 class="tsd-anchor-link">WebGL State Tracking<a href="#webgl-state-tracking" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>This example uses WebGL state tracking to prevent rendering conflicts between React Three Fiber and CloudXR. Both libraries render to the same WebGL context, but CloudXR's rendering operations modify WebGL state (framebuffers, textures, buffers, VAOs, shaders, blend modes, etc.) which can interfere with React Three Fiber's expectations. The example wraps the WebGL context with <code>bindGL()</code> from <code>@helpers/WebGLStateBinding</code>, then uses CloudXR's <code>onWebGLStateChangeBegin</code> and <code>onWebGLStateChangeEnd</code> callbacks to automatically save and restore state around CloudXR's rendering. This ensures React Three Fiber always finds the WebGL context in the expected state after each CloudXR render operation.</p>
+<p>See <code>examples/helpers/WebGLStateBinding.ts</code>, <code>WebGLState.ts</code>, and <code>WebGLStateApply.ts</code> for implementation details. Comprehensive tests are available in <code>tests/unit/WebGLState.test.ts</code> and <code>tests/playwright/WebGLTests/src/WebGLStateBindingTests.ts</code>.</p>
+<a id="license" class="tsd-anchor"></a><h2 class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>See the <a href="../media/LICENSE-1">LICENSE</a> file for details.</p>
+<a id="third-party-assets" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Third-Party Assets<a href="#third-party-assets" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Icons used in the immersive UI are from <a href="https://heroicons.com/">Heroicons</a> by Tailwind Labs, licensed under the MIT License. See <a href="../media/HEROICONS_LICENSE">HEROICONS_LICENSE</a> for details.</p>
+<a id="next-steps" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Next Steps<a href="#next-steps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Experience one of the compatible OpenXR applications with CloudXR Runtime</p>
+<ul>
+<li><a href="Show_Cases.Isaac_Lab_Teleop.html">Isaac Lab Teleoperation</a></li>
+<li><a href="Show_Cases.Omniverse_Spatial_Streaming.html">Omniverse</a></li>
+<li><a href="Show_Cases.L%C3%96VR.html">LÖVR</a></li>
+</ul>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#react-three-fiber-example"><span>React <wbr/>Three <wbr/>Fiber <wbr/>Example</span></a><ul><li><a href="#overview"><span>Overview</span></a></li><li><a href="#quick-start"><span>Quick <wbr/>Start</span></a></li><li><ul><li><a href="#option-a-docker-recommended-for-quick-start"><span>Option <wbr/>A: <wbr/>Docker (<wbr/>Recommended for <wbr/>Quick <wbr/>Start)</span></a></li><li><ul><li><a href="#prerequisites"><span>Prerequisites</span></a></li><li><a href="#build-and-run"><span>Build and <wbr/>Run</span></a></li></ul></li><li><a href="#option-b-local-development"><span>Option <wbr/>B: <wbr/>Local <wbr/>Development</span></a></li><li><ul><li><a href="#prerequisites-1"><span>Prerequisites</span></a></li><li><a href="#build-and-run-1"><span>Build and <wbr/>Run</span></a></li></ul></li><li><a href="#basic-usage"><span>Basic <wbr/>Usage</span></a></li></ul></li><li><a href="#technical-architecture"><span>Technical <wbr/>Architecture</span></a></li><li><ul><li><a href="#core-components"><span>Core <wbr/>Components</span></a></li><li><ul><li><a href="#apptsx"><span>App.tsx</span></a></li><li><a href="#cloudxrcomponenttsx"><span>CloudXRComponent.tsx</span></a></li><li><a href="#cloudxr2duitsx"><span>CloudXR2DUI.tsx</span></a></li><li><a href="#cloudxruitsx-3d-ui"><span>CloudXRUI.tsx (3<wbr/>D UI)</span></a></li></ul></li></ul></li><li><a href="#development"><span>Development</span></a></li><li><ul><li><a href="#project-structure"><span>Project <wbr/>Structure</span></a></li></ul></li><li><a href="#react-three-fiber-integration"><span>React <wbr/>Three <wbr/>Fiber <wbr/>Integration</span></a></li><li><ul><li><a href="#xr-store-configuration"><span>XR <wbr/>Store <wbr/>Configuration</span></a></li><li><a href="#canvas-setup"><span>Canvas <wbr/>Setup</span></a></li><li><a href="#custom-render-loop"><span>Custom <wbr/>Render <wbr/>Loop</span></a></li></ul></li><li><a href="#3d-user-interface"><span>3<wbr/>D <wbr/>User <wbr/>Interface</span></a></li><li><ul><li><a href="#react-three-uikit-components"><span>React <wbr/>Three UIKit <wbr/>Components</span></a></li><li><a href="#ui-positioning"><span>UI <wbr/>Positioning</span></a></li><li><a href="#webgl-state-tracking"><span>WebGL <wbr/>State <wbr/>Tracking</span></a></li></ul></li><li><a href="#license"><span>License</span></a></li><li><ul><li><a href="#third-party-assets"><span>Third-<wbr/>Party <wbr/>Assets</span></a></li></ul></li><li><a href="#next-steps"><span>Next <wbr/>Steps</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">CloudXR.js SDK Documentation - v6.0.1-beta</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

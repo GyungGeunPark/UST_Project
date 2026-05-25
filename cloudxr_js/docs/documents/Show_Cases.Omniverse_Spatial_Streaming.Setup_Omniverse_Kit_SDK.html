@@ -1,0 +1,125 @@
+<!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Setup Omniverse Kit SDK | CloudXR.js SDK Documentation - v6.0.1-beta</title><meta name="description" content="Documentation for CloudXR.js SDK Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">CloudXR.js SDK Documentation - v6.0.1-beta</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">CloudXR.js SDK Documentation</a></li><li><a href="Show_Cases.html">Show Cases</a></li><li><a href="Show_Cases.Omniverse_Spatial_Streaming.html">Omniverse Spatial Streaming</a></li><li><a href="Show_Cases.Omniverse_Spatial_Streaming.Setup_Omniverse_Kit_SDK.html">Setup Omniverse Kit SDK</a></li></ul></div><div class="tsd-panel tsd-typography"><a id="omniverse-kit-setup-for-streaming-to-meta-headsets" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Omniverse Kit Setup for Streaming to Meta Headsets<a href="#omniverse-kit-setup-for-streaming-to-meta-headsets" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1><p>Developing a new Kit XR application for streaming to the Meta Quest 3 headset begins with configuring the necessary settings and dependencies. This utilizes the Kit app template as the foundation for an XR-specific template. The Kit app template allows developers to fork, customize, and use it for developing, packaging, and sharing their extensions. This toolkit is crucial for developing GPU-accelerated applications within the NVIDIA Omniverse ecosystem. The Omniverse platform includes pre-configured templates, tools, and sample code designed to simplify and expedite the creation of high-performance applications using OpenUSD.</p>
+<p>To begin, select a folder in your code editor to serve as your workspace.</p>
+<blockquote>
+<p><strong>Note</strong>: For Windows OS, ensure <a href="https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry">long path support</a> is enabled,
+or ensure the workspace folder is in a shallow nested location.</p>
+</blockquote>
+<a id="🖥️-i-clone-the-kit-repository" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🖥️ I. Clone the Kit Repository<a href="#🖥️-i-clone-the-kit-repository" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><ol>
+<li>
+<p>Be sure to create a new folder instead of using a location where other templates reside, as this could lead to configuration errors or conflicts due to updates to the template.</p>
+</li>
+<li>
+<p>Open a new terminal in your code editor.</p>
+</li>
+<li>
+<p>Clone the repository:</p>
+<pre><code class="bash"><span class="hl-1">git</span><span class="hl-2"> </span><span class="hl-3">clone</span><span class="hl-2"> </span><span class="hl-4">--single-branch</span><span class="hl-2"> </span><span class="hl-4">--branch</span><span class="hl-2"> </span><span class="hl-7">109.0.2</span><span class="hl-2"> </span><span class="hl-3">https://github.com/NVIDIA-Omniverse/kit-app-template.git</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Navigate into the newly cloned directory:</p>
+<pre><code class="bash"><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">kit-app-template</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>In the terminal, use the template new command:</p>
+<pre><code class="bash"><span class="hl-0"># on Windows</span><br/><span class="hl-1">.</span><span class="hl-2">\</span><span class="hl-3">repo.bat</span><span class="hl-2"> </span><span class="hl-3">template</span><span class="hl-2"> </span><span class="hl-3">new</span><br/><br/><span class="hl-0"># on Linux</span><br/><span class="hl-1">./repo.sh</span><span class="hl-2"> </span><span class="hl-3">template</span><span class="hl-2"> </span><span class="hl-3">new</span>
+</code><button type="button">Copy</button></pre>
+
+<p>This command creates an application containing the Kit SDK.</p>
+</li>
+<li>
+<p>When prompted: <strong><code>Select what you want to create -</code></strong> Select <strong><code>Application</code></strong></p>
+</li>
+<li>
+<p>When prompted to <strong><code>Select desired template:</code></strong></p>
+<ul>
+<li>Select <strong>USD Composer</strong> to create a Kit app for authoring, editing and testing your USD data in XR. Or:</li>
+<li>If you'd like to create a smaller footprint application just for streaming your USD, you can instead select <strong>Kit Base Editor</strong>.</li>
+</ul>
+</li>
+<li>
+<p>Give your application and sample extension a desired name and version, like <code>my_company.my_usd_composer</code>. We won't be using a sample extension for this guide, so you can leave the extension name at its default value.</p>
+</li>
+<li>
+<p>When prompted: <strong><code>Do you want to add application layers?</code></strong> Select <strong><code>No.</code></strong></p>
+</li>
+</ol>
+<a id="🖥️-ii-modify-your-kit-app-extensions--settings" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🖥️ II. Modify your Kit App Extensions &amp; Settings<a href="#🖥️-ii-modify-your-kit-app-extensions--settings" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><ol>
+<li>
+<p>Open: <code>my_company.my_usd_composer.kit</code> in your code editor.</p>
+<blockquote>
+<p><strong>Note</strong>: On Windows, the file is at <code>kit-app-template\source\apps\</code>. On Linux, it is at <code>kit-app-template/source/apps/</code>.</p>
+</blockquote>
+</li>
+<li>
+<p>Include the following extensions to the end of the <code>[dependencies]</code> list:</p>
+<pre><code class="ini"><span class="hl-0"># Core infrastructure for doing XR inside Kit</span><br/><span class="hl-3">&quot;omni.kit.xr.core&quot;</span><span class="hl-2"> = {</span><span class="hl-4">version</span><span class="hl-2"> = </span><span class="hl-3">&quot;&gt;=109.0.2&quot;</span><span class="hl-2">}</span><br/><span class="hl-0"># This extension contains the XR parts to build the menu windows for the different xr profiles</span><br/><span class="hl-3">&quot;omni.kit.xr.ui.window.profile&quot;</span><span class="hl-2"> = {</span><span class="hl-4">version</span><span class="hl-2"> = </span><span class="hl-3">&quot;&gt;=109.0.2&quot;</span><span class="hl-2">}</span><br/><span class="hl-0"># This extension contains the XR parts for viewport integration</span><br/><span class="hl-3">&quot;omni.kit.xr.ui.window.viewport&quot;</span><span class="hl-2"> = {</span><span class="hl-4">version</span><span class="hl-2"> = </span><span class="hl-3">&quot;&gt;=109.0.2&quot;</span><span class="hl-2">}</span><br/><span class="hl-0"># This extension the common ui widgets for the stage</span><br/><span class="hl-3">&quot;omni.kit.xr.ui.stage&quot;</span><span class="hl-2"> = {</span><span class="hl-4">version</span><span class="hl-2"> = </span><span class="hl-3">&quot;&gt;=109.0.2&quot;</span><span class="hl-2">}</span><br/><span class="hl-0"># The CloudXR runtime</span><br/><span class="hl-3">&quot;omni.kit.xr.cloudxr&quot;</span><span class="hl-2"> = {</span><span class="hl-4">version</span><span class="hl-2"> = </span><span class="hl-3">&quot;&gt;=6.0.4&quot;</span><span class="hl-2">}</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Save your .kit file.</p>
+</li>
+</ol>
+<a id="🖥️-iii-build-and-launch-the-kit-application" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🖥️ III. Build and Launch the Kit Application<a href="#🖥️-iii-build-and-launch-the-kit-application" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>To be able to run the application, you need to build it first. The build process compiles your application and its extensions, preparing them for launch.</p>
+<ol>
+<li>
+<p>In the terminal window, enter the following command to build your app:</p>
+<pre><code class="bash"><span class="hl-0"># on Windows</span><br/><span class="hl-1">.</span><span class="hl-2">\</span><span class="hl-3">repo.bat</span><span class="hl-2"> </span><span class="hl-3">build</span><br/><br/><span class="hl-0"># on Linux</span><br/><span class="hl-1">./repo.sh</span><span class="hl-2"> </span><span class="hl-3">build</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>When the build process is finished, a message appears:</p>
+<pre><code><span class="hl-1">BUILD</span><span class="hl-2"> (</span><span class="hl-6">RELEASE</span><span class="hl-2">) </span><span class="hl-1">SUCCEEDED</span><span class="hl-2"> (&lt;</span><span class="hl-13">time</span><span class="hl-2"> </span><span class="hl-13">taken</span><span class="hl-2">&gt;)</span>
+</code><button>Copy</button></pre>
+
+</li>
+<li>
+<p>Type the following command to launch your application:</p>
+<pre><code class="bash"><span class="hl-0"># on Windows</span><br/><span class="hl-1">.</span><span class="hl-2">\</span><span class="hl-3">repo.bat</span><span class="hl-2"> </span><span class="hl-3">launch</span><br/><br/><span class="hl-0"># on Linux</span><br/><span class="hl-1">./repo.sh</span><span class="hl-2"> </span><span class="hl-3">launch</span>
+</code><button type="button">Copy</button></pre>
+
+<blockquote>
+<p><strong>Note</strong>: The first time a Kit application is launched it will compile and cache the RTX shaders, this can take several minutes.</p>
+</blockquote>
+<p>When the launch process is complete, the application opens in a new window. You may need to dock the <code>XR</code> panel.</p>
+</li>
+<li>
+<p>First locate the asset file included in the Workflow Example. Or download the USD dataset <a href="https://developer.nvidia.com/downloads/USD/dataset/apple-configurator-example/visionpro_purse_example.7z">visionpro_purse_example.usd</a>.</p>
+</li>
+<li>
+<p>Open the <strong>visionpro_purse_example.usd</strong> file and allow all the files to load. At this point, if you need to get more familiar with Omniverse, its default interface and UI, or OpenUSD, refer to the Omniverse documentation. To understand more about what you can do with Kit App Template, please refer to the <a href="https://docs.omniverse.nvidia.com/kit/docs/kit-app-template/latest/index.html">Kit App Template Companion Guide</a>.</p>
+</li>
+</ol>
+<a id="configure-cloudxr-for-meta-quest-3" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Configure CloudXR for Meta Quest 3<a href="#configure-cloudxr-for-meta-quest-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>
+<p>Stop any existing Simulated XR modes that might be running by clicking <code>Stop XR</code> from the <code>XR</code> panel.</p>
+</li>
+<li>
+<p>Configure the OpenXR settings:</p>
+<ul>
+<li>Change the <strong>Selected Output Plugin</strong> from Simulated XR to <code>OpenXR</code></li>
+<li>Change the <strong>OpenXR Runtime</strong> dropdown to <code>CloudXR 6 (WebRTC)</code></li>
+</ul>
+</li>
+<li>
+<p>Click <code>Start XR</code>.</p>
+<ul>
+<li>You know that you have successfully started the server with the runtime when you see this message within the viewport window: &quot;Status: Running XR&quot;</li>
+</ul>
+</li>
+<li>
+<p><strong>Find IP Address</strong>: Type <code>ipconfig</code> in the Command Prompt (Press Win + R, type <code>cmd</code>, and hit Enter) in Windows OS, or <code>ifconfig</code> in Linux. Take note of the IP address for use in connecting the client to the server.</p>
+</li>
+<li>
+<p><strong>Manage XR Session</strong>: You can now either <code>Stop XR</code> or leave the server running in the background while you set up the client.</p>
+</li>
+</ol>
+<p>Now let's set up your CloudXR.js generic sample client.</p>
+<a id="next" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Next<a href="#next" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p><a href="Show_Cases.Omniverse_Spatial_Streaming.Running_Generic_Client.html">Running Generic Client on Meta Quest 3</a></p>
+<a id="previous" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Previous<a href="#previous" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p><a href="Show_Cases.Omniverse_Spatial_Streaming.html">Running Omniverse Spatial Streaming on Meta Quest 3</a></p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#omniverse-kit-setup-for-streaming-to-meta-headsets"><span>Omniverse <wbr/>Kit <wbr/>Setup for <wbr/>Streaming to <wbr/>Meta <wbr/>Headsets</span></a><ul><li><a href="#🖥️-i-clone-the-kit-repository"><span>🖥️ <wbr/>I. <wbr/>Clone the <wbr/>Kit <wbr/>Repository</span></a></li><li><a href="#🖥️-ii-modify-your-kit-app-extensions--settings"><span>🖥️ II. <wbr/>Modify your <wbr/>Kit <wbr/>App <wbr/>Extensions &amp; <wbr/>Settings</span></a></li><li><a href="#🖥️-iii-build-and-launch-the-kit-application"><span>🖥️ III. <wbr/>Build and <wbr/>Launch the <wbr/>Kit <wbr/>Application</span></a></li><li><ul><li><a href="#configure-cloudxr-for-meta-quest-3"><span>Configure <wbr/>CloudXR for <wbr/>Meta <wbr/>Quest 3</span></a></li></ul></li><li><a href="#next"><span>Next</span></a></li><li><a href="#previous"><span>Previous</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">CloudXR.js SDK Documentation - v6.0.1-beta</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

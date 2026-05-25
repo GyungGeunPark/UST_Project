@@ -1,0 +1,122 @@
+{
+  "_comment": [
+    "UDCAP-NATIVE binding file (controller_type: udcap).",
+    "",
+    "Why this exists in addition to bindings_index.json:",
+    "  UDCAP advertises ``compatibility_mode_controller_type: \"knuckles\"``",
+    "  in UDCAP_profile.json so that legacy Index-only apps still see a",
+    "  controller.  But the compat layer only bridges a SUBSET of inputs",
+    "  (typically just trigger value + grip, for the basic Index emulation).",
+    "  The per-finger curl channels and the skeletal channel — which UDCAP",
+    "  DOES populate natively at /input/finger/* and /input/skeleton/* —",
+    "  are NOT bridged through the knuckles compat layer.",
+    "",
+    "  Result: bindings_index.json loads cleanly for our app, every entry",
+    "  passes validation, but UDCAP returns 0 for every finger and",
+    "  bActive=False for skeletal.  The fix is to ALSO ship a binding",
+    "  with ``controller_type: \"udcap\"`` so SteamVR routes the action",
+    "  reads through UDCAP's native input handling.  When both are",
+    "  present, SteamVR prefers the binding whose controller_type matches",
+    "  the device's NATIVE type (udcap > knuckles compat).",
+    "",
+    "Differences from bindings_index.json:",
+    "  * controller_type: \"udcap\" (not knuckles)",
+    "  * Includes /input/finger/thumb (UDCAP exposes 5 fingers; Index has 4)",
+    "  * Trigger/grip use UDCAP-native paths /input/trigger and /input/grab",
+    "    bound as ``button`` with ``click`` input (UDCAP exposes these as",
+    "    discrete events, not analog values, per UDCAP_profile.json)"
+  ],
+  "bindings": {
+    "/actions/teleop": {
+      "skeleton": [
+        {
+          "output": "/actions/teleop/in/skeleton_left",
+          "path":   "/user/hand/left/input/skeleton/left"
+        },
+        {
+          "output": "/actions/teleop/in/skeleton_right",
+          "path":   "/user/hand/right/input/skeleton/right"
+        }
+      ],
+      "sources": [
+        {
+          "inputs": {"click": {"output": "/actions/teleop/in/trigger_left"}},
+          "mode":   "button",
+          "path":   "/user/hand/left/input/trigger"
+        },
+        {
+          "inputs": {"click": {"output": "/actions/teleop/in/trigger_right"}},
+          "mode":   "button",
+          "path":   "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs": {"click": {"output": "/actions/teleop/in/grip_left"}},
+          "mode":   "button",
+          "path":   "/user/hand/left/input/grab"
+        },
+        {
+          "inputs": {"click": {"output": "/actions/teleop/in/grip_right"}},
+          "mode":   "button",
+          "path":   "/user/hand/right/input/grab"
+        },
+
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_thumb_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/thumb"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_index_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/index"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_middle_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/middle"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_ring_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/ring"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_pinky_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/pinky"
+        },
+
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_thumb_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/thumb"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_index_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/index"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_middle_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/middle"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_ring_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/ring"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_pinky_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/pinky"
+        }
+      ]
+    }
+  },
+  "controller_type": "udcap",
+  "description": "UDCAP-native binding: skeleton + 5-finger curl + trigger/grip click",
+  "name": "UST Teleop — UDCAP native (5-finger + skeletal)",
+  "options": {},
+  "simulated_actions": []
+}

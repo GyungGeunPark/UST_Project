@@ -1,0 +1,68 @@
+# Copyright (c) 2026 UST Project
+# SPDX-License-Identifier: MIT
+#
+# UST 프로젝트용 CloudXR Runtime Docker Compose Patch
+#
+# 원본: /workspace/isaaclab/docker/docker-compose.cloudxr-runtime.patch.yaml
+# 변경점: Docker 관리 볼륨(openxr-volume) 대신 호스트 바인드 마운트(./ust_ws/openxr)를 사용
+#
+# 사용법:
+#   cd /workspace/isaaclab
+#   ./docker/container.py start \
+#       --files ust_ws/260207_ust/docker-compose.cloudxr-ust.patch.yaml \
+#       --env-file docker/.env.cloudxr-runtime
+
+services:
+  cloudxr-runtime:
+    image: ${CLOUDXR_RUNTIME_BASE_IMAGE_ARG:-nvcr.io/nvidia/cloudxr-runtime-early-access}:${CLOUDXR_RUNTIME_VERSION_ARG:-6.0.1-webrtc}
+    network_mode: host
+    # --network host 사용 시 ports 매핑 불필요 (호스트 네트워크 직접 사용)
+    # CloudXR Runtime 6.0.1 사용 포트:
+    #   TCP 49100 - WebSocket 시그널링
+    #   UDP 47998-48012 - 미디어 스트리밍
+    healthcheck:
+      test: ["CMD", "test", "-S", "/openxr/run/ipc_cloudxr"]
+      interval: 1s
+      timeout: 1s
+      retries: 10
+      start_period: 5s
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA:-Y}
+    volumes:
+      # ★ 변경: Docker 관리 볼륨 대신 호스트의 ./ust_ws/openxr 폴더를 직접 마운트
+      - type: bind
+        source: ./ust_ws/openxr
+        target: /openxr
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+
+  isaac-lab-base:
+    environment:
+      # ★ CloudXR 연결을 위한 환경변수 (컨테이너 내부 경로)
+      - XDG_RUNTIME_DIR=/openxr/run
+      - XR_RUNTIME_JSON=/openxr/share/openxr/1/openxr_cloudxr.json
+      - IPC_IGNORE_VERSION=1
+    volumes:
+      # ★ 같은 호스트 폴더를 Isaac Lab 컨테이너에도 마운트
+      - type: bind
+        source: ./ust_ws/openxr
+        target: /openxr
+      # UST 프로젝트 코드 마운트 (옵션)
+      - type: bind
+        source: ./ust_ws
+        target: /workspace/isaaclab/ust_ws
+    depends_on:
+      cloudxr-runtime:
+        condition: service_healthy  # 헬스체크 통과 후 시작
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]

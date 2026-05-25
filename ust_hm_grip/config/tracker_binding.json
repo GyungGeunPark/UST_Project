@@ -1,0 +1,57 @@
+{
+  "_comment": [
+    "Tracker → role mapping for the GR1T2 + gripper migration (research/36).",
+    "",
+    "The user wears 2 motion trackers on the *elbow / proximal forearm*",
+    "(PICO Connect 'Forearm Tracking Enhanced' calibration mode).  They are",
+    "still bound to the role 'left_forearm' / 'right_forearm' so the rest",
+    "of the codebase can find them, but the device's forearm_wrist_offset",
+    "must be ~0.28 m (typical adult forearm length) instead of the 0.12 m",
+    "used when the tracker was on the wrist itself.",
+    "",
+    "The hips tracker is OPTIONAL (skipped when the user is on the no-",
+    "tracker rig).  When present, it drives waist_pitch/yaw via the",
+    "WaistEstimator (kept disabled by default in the gripper migration to",
+    "avoid the Virtual Desktop AI body tracker noise documented in CLAUDE",
+    ".md gotcha #6).",
+    "",
+    "Replace each 'TODO' below (or the generic key names hips / *_arm_lower)",
+    "with your tracker's real serial number when running with physical",
+    "Vive trackers.  Virtual-Desktop-inferred AI segments use the keys as-is."
+  ],
+  "hmd": "auto",
+  "trackers": {
+    "hips": {
+      "role": "waist",
+      "steamvr_role": "TrackerRole_Waist"
+    },
+    "chest": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "left_arm_upper": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "left_arm_lower": {
+      "role": "left_forearm",
+      "steamvr_role": "TrackerRole_LeftElbow"
+    },
+    "right_arm_upper": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "right_arm_lower": {
+      "role": "right_forearm",
+      "steamvr_role": "TrackerRole_RightElbow"
+    },
+    "left_lower_leg": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    },
+    "right_lower_leg": {
+      "role": "",
+      "steamvr_role": "ai_inferred"
+    }
+  }
+}

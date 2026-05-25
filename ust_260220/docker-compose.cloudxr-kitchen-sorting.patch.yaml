@@ -1,0 +1,69 @@
+# Copyright (c) 2026 UST Project
+# SPDX-License-Identifier: MIT
+#
+# G1 Kitchen Sorting - CloudXR Runtime Docker Compose Patch
+#
+# CloudXR Runtime 6.0.1-webrtc + Isaac Lab 컨테이너 연동
+# GPU: RTX PRO 6000
+#
+# 사용법:
+#   cd /workspace/isaaclab
+#   ./docker/container.py start \
+#       --files ust_ws/ust_260220/docker-compose.cloudxr-kitchen-sorting.patch.yaml \
+#       --env-file docker/.env.cloudxr-runtime
+
+services:
+  cloudxr-runtime:
+    image: ${CLOUDXR_RUNTIME_BASE_IMAGE_ARG:-nvcr.io/nvidia/cloudxr-runtime-early-access}:${CLOUDXR_RUNTIME_VERSION_ARG:-6.0.1-webrtc}
+    network_mode: host
+    # CloudXR Runtime 6.0.1 ports:
+    #   TCP 49100 - WebSocket signaling
+    #   UDP 47998-48012 - Media streaming
+    healthcheck:
+      test: ["CMD", "test", "-S", "/openxr/run/ipc_cloudxr"]
+      interval: 1s
+      timeout: 1s
+      retries: 10
+      start_period: 5s
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA:-Y}
+    volumes:
+      - type: bind
+        source: ./ust_ws/openxr
+        target: /openxr
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+
+  isaac-lab-base:
+    environment:
+      # CloudXR 6.0.1 연결 환경변수
+      - XDG_RUNTIME_DIR=/openxr/run
+      - XR_RUNTIME_JSON=/openxr/share/openxr/1/openxr_cloudxr.json
+      - IPC_IGNORE_VERSION=1
+      # RTX PRO 6000 최적화
+      - NV_GPU_INDEX=0
+      - NV_PACER_FIXED_TIME_STEP_MS=11
+    volumes:
+      # CloudXR Runtime 공유 폴더
+      - type: bind
+        source: ./ust_ws/openxr
+        target: /openxr
+      # Kitchen Sorting 프로젝트 코드
+      - type: bind
+        source: ./ust_ws
+        target: /workspace/isaaclab/ust_ws
+    depends_on:
+      cloudxr-runtime:
+        condition: service_healthy
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]

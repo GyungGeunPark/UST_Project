@@ -1,0 +1,88 @@
+{
+  "_comment": [
+    "OpenVR action manifest for Fourier GR1T2 teleop.",
+    "",
+    "Why this is more than just skeletal actions:",
+    " * UDCAP / LucidVR-family knuckles emulators typically DO NOT implement",
+    "   SteamVR Skeletal Input 2.0 (CreateSkeletonComponent in the driver).",
+    "   The skeletal probe in GR1T2FourierUDCAPDevice confirms this: the",
+    "   action exists (bone count == 31) but ``bActive == False`` means no",
+    "   device is supplying data.",
+    " * What those drivers DO emit is the Valve Index per-finger curl inputs",
+    "   at /user/hand/{l,r}/input/finger/{thumb,index,middle,ring,pinky}.",
+    "   Each is a vector1 in [0, 1].  We bind all 10 of them as analog",
+    "   actions and have the retargeter consume them as the primary finger",
+    "   source when skeletal is unavailable.",
+    " * Legacy OpenVR ``getControllerState()`` (what vr_sampler.py uses)",
+    "   often returns zeros for knuckles emulators because those drivers",
+    "   only populate the new action-based input system.  We therefore also",
+    "   bind trigger/grip as vector1 actions and read them via the action",
+    "   API in GR1T2FourierUDCAPDevice instead of trusting the sampler's",
+    "   legacy-API button state.",
+    "",
+    "``app_key`` matches the entry in ../manifest.vrmanifest and is what",
+    "SteamVR uses to identify this application — without it the app does",
+    "not appear in Settings -> Controllers -> Manage Controller Bindings",
+    "and ``default_bindings`` are never auto-applied."
+  ],
+  "app_key": "ust.teleop.fourier_gr1t2",
+  "action_sets": [
+    { "name": "/actions/teleop", "usage": "single" }
+  ],
+  "actions": [
+    {
+      "name": "/actions/teleop/in/skeleton_left",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/teleop/in/skeleton_right",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right",
+      "requirement": "optional"
+    },
+    { "name": "/actions/teleop/in/trigger_left",  "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/trigger_right", "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/grip_left",     "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/grip_right",    "type": "vector1", "requirement": "optional" },
+
+    { "name": "/actions/teleop/in/finger_thumb_left",   "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_index_left",   "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_middle_left",  "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_ring_left",    "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_pinky_left",   "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_thumb_right",  "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_index_right",  "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_middle_right", "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_ring_right",   "type": "vector1", "requirement": "optional" },
+    { "name": "/actions/teleop/in/finger_pinky_right",  "type": "vector1", "requirement": "optional" }
+  ],
+  "default_bindings": [
+    { "controller_type": "udcap",        "binding_url": "bindings_udcap.json" },
+    { "controller_type": "knuckles",     "binding_url": "bindings_index.json" },
+    { "controller_type": "oculus_touch", "binding_url": "bindings_oculus_touch.json" }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_us",
+      "/actions/teleop": "UST Teleop",
+      "/actions/teleop/in/skeleton_left":       "Left hand skeleton",
+      "/actions/teleop/in/skeleton_right":      "Right hand skeleton",
+      "/actions/teleop/in/trigger_left":        "Left trigger",
+      "/actions/teleop/in/trigger_right":       "Right trigger",
+      "/actions/teleop/in/grip_left":           "Left grip",
+      "/actions/teleop/in/grip_right":          "Right grip",
+      "/actions/teleop/in/finger_thumb_left":   "Left thumb curl",
+      "/actions/teleop/in/finger_index_left":   "Left index curl",
+      "/actions/teleop/in/finger_middle_left":  "Left middle curl",
+      "/actions/teleop/in/finger_ring_left":    "Left ring curl",
+      "/actions/teleop/in/finger_pinky_left":   "Left pinky curl",
+      "/actions/teleop/in/finger_thumb_right":  "Right thumb curl",
+      "/actions/teleop/in/finger_index_right":  "Right index curl",
+      "/actions/teleop/in/finger_middle_right": "Right middle curl",
+      "/actions/teleop/in/finger_ring_right":   "Right ring curl",
+      "/actions/teleop/in/finger_pinky_right":  "Right pinky curl"
+    }
+  ]
+}

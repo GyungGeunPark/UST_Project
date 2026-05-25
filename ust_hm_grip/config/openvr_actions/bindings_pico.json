@@ -1,0 +1,94 @@
+{
+  "_comment": [
+    "Canonical bindings file for ust_hm_grip GR1T2 + gripper teleop.",
+    "9.42: controller_type fixed to 'pico_controller' (PICO 4 / 4 Ultra via",
+    "Pico Connect 6.x+).  Five additional bindings_<controller_type>.json files",
+    "live alongside this one for the other supported controller_type values.",
+    "actions.json default_bindings maps each controller_type to its own file.",
+    "",
+    "Why mode = 'trigger' for both trigger and grip (post-9.32):",
+    "  trigger/pull reads /input/grip/value (universal across all 6 profiles).",
+    "  force_sensor mode would require /input/grip/force, which only exists on",
+    "  Knuckles + pico_neo3_controller; oculus_touch (VD emulation) does not",
+    "  expose it, so the previous force_sensor binding silently returned 0",
+    "  under VD streaming.  See memory.md sections 10.40 / 10.42 / 10.49."
+  ],
+  "alias_info": {},
+  "bindings": {
+    "/actions/teleop": {
+      "sources": [
+        {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/trigger_left"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trigger",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/trigger_right"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/grip",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/grip_left"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/grip",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/grip_right"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/application_menu",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/teleop/in/menu_left"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/application_menu",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/teleop/in/menu_right"
+            }
+          }
+        }
+      ],
+      "haptics": [],
+      "skeleton": [],
+      "poses": [
+        {
+          "output": "/actions/teleop/in/pose_left",
+          "path": "/user/hand/left/pose/raw"
+        },
+        {
+          "output": "/actions/teleop/in/pose_right",
+          "path": "/user/hand/right/pose/raw"
+        }
+      ]
+    }
+  },
+  "controller_type": "pico_controller",
+  "description": "UST Teleop GR1T2 Gripper — PICO / Oculus Touch / Knuckles",
+  "name": "UST Teleop GR1T2 Gripper -- pico_controller (canonical)",
+  "options": {},
+  "simulated_actions": []
+}

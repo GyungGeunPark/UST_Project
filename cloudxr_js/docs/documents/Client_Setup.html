@@ -1,0 +1,271 @@
+<!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Client Setup | CloudXR.js SDK Documentation - v6.0.1-beta</title><meta name="description" content="Documentation for CloudXR.js SDK Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">CloudXR.js SDK Documentation - v6.0.1-beta</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">CloudXR.js SDK Documentation</a></li><li><a href="Client_Setup.html">Client Setup</a></li></ul></div><div class="tsd-panel tsd-typography"><a id="client-setup-guide" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Client Setup Guide<a href="#client-setup-guide" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1><p>This guide provides configuration examples for CloudXR.js client devices, including browser setup, web server hosting options, and connection modes. These examples demonstrate common deployment scenarios you may encounter.</p>
+<a id="web-application-hosting" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Web Application Hosting<a href="#web-application-hosting" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>CloudXR.js client applications can be hosted using either HTTP or HTTPS protocols. We provide examples for both modes to help you choose the right approach for your deployment.</p>
+<a id="http-mode-development" class="tsd-anchor"></a><h3 class="tsd-anchor-link">HTTP Mode (Development)<a href="#http-mode-development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>This example demonstrates the simplest configuration for local development and testing.</p>
+<p><strong>Example command:</strong></p>
+<pre><code class="bash"><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev-server</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Access URLs:</strong></p>
+<ul>
+<li>Local: <code>http://localhost:8080/</code></li>
+<li>Network: <code>http://&lt;server-ip&gt;:8080/</code></li>
+</ul>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Simplified setup with minimal configuration</li>
+<li>Supports connections to both <code>ws://</code> (direct) and <code>wss://</code> (proxied) CloudXR Runtime endpoints</li>
+<li>Requires browser security flags for immersive web functionality (see <a href="#meta-quest-3-configuration">Meta Quest 3</a> or <a href="#pico-4-ultra-configuration">Pico 4 Ultra</a> configuration)</li>
+<li>Recommended for: Local development, trusted network environments</li>
+</ul>
+<a id="https-mode-development-and-production" class="tsd-anchor"></a><h3 class="tsd-anchor-link">HTTPS Mode (Development and Production)<a href="#https-mode-development-and-production" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>This example demonstrates HTTPS hosting, which is used for both development with WebXR devices and production deployments. It provides encrypted client connections and is required for secure WebSocket connections.</p>
+<p><strong>Example command:</strong></p>
+<pre><code class="bash"><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev-server:https</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Access URLs:</strong></p>
+<ul>
+<li>Local: <code>https://localhost:8080/</code></li>
+<li>Network: <code>https://&lt;server-ip&gt;:8080/</code></li>
+</ul>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Automatically generates self-signed SSL certificates (for development) or custom certificates (for production)</li>
+<li><strong>Requires</strong> <code>wss://</code> (secure WebSocket) connection to CloudXR Runtime</li>
+<li>Browsers enforce mixed content policy, blocking <code>ws://</code> connections from HTTPS pages</li>
+<li>Requires certificate trust configuration in client browser</li>
+<li>Recommended for: XR device testing, production deployments, remote access, security-sensitive environments</li>
+</ul>
+<a id="connection-mode-examples" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Connection Mode Examples<a href="#connection-mode-examples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The following table shows example connection configurations between the web application server and CloudXR Runtime:</p>
+<table>
+<thead>
+<tr>
+<th>Client Web Server</th>
+<th>Runtime Connection</th>
+<th>Status</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP</td>
+<td><code>ws://server-ip:49100</code></td>
+<td>✅ Supported</td>
+<td>Local development (simplest path)</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td><code>wss://proxy-ip:48322</code></td>
+<td>✅ Supported</td>
+<td>Testing proxy configuration</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td><code>ws://server-ip:49100</code></td>
+<td>❌ Blocked</td>
+<td>Mixed content security policy violation</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td><code>wss://proxy-ip:48322</code></td>
+<td>✅ Supported</td>
+<td>XR device testing, production deployment</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Important</strong>: When using HTTPS mode for your web application, you must configure a WebSocket proxy with TLS support. See the <a href="Networking_Setup.html#websocket-proxy-setup">Networking Setup Guide - WebSocket Proxy Setup</a> for configuration details.</p>
+</blockquote>
+<a id="headset-configuration" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Headset Configuration<a href="#headset-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>This section provides configurations for supported XR headsets to enable immersive web functionality with CloudXR.js applications.</p>
+<a id="pico-4-ultra-configuration" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Pico 4 Ultra Configuration<a href="#pico-4-ultra-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Pico 4 Ultra has the following requirements:</p>
+<blockquote>
+<p><strong>Important</strong>:</p>
+<ul>
+<li>Requires <strong>Pico OS 15.4.4U or later</strong></li>
+<li><strong>HTTP mode is not supported</strong> - HTTPS mode is required for immersive web applications</li>
+</ul>
+</blockquote>
+<a id="browser-configuration" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Browser Configuration<a href="#browser-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>See <a href="#trust-ssl-certificates-https-mode">Trust SSL Certificates (HTTPS Mode)</a> for browser configuration instructions.</p>
+<a id="additional-configuration" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Additional Configuration<a href="#additional-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><strong>Enable Hand Tracking:</strong></p>
+<ol>
+<li>Open <strong>Settings</strong> on your Pico 4 Ultra</li>
+<li>Navigate to <strong>Interaction</strong></li>
+<li>Select  <strong>Auto Switch between Hands &amp; Controllers</strong> for <strong>Interaction Controls</strong></li>
+</ol>
+<p><strong>Disable System Gestures (Optional):</strong></p>
+<ol>
+<li>Open <strong>Settings</strong> on your Pico 4 Ultra</li>
+<li>Navigate to <strong>Developer</strong> &gt; <strong>Business Settings</strong> &gt; <strong>System</strong></li>
+<li>Disable <strong>Handtracking system gesture</strong></li>
+</ol>
+<a id="meta-quest-3-configuration" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Meta Quest 3 Configuration<a href="#meta-quest-3-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Meta Quest 3 (OS version 79 or later) browser works with both HTTP and HTTPS modes. Choose the configuration that matches your hosting mode:</p>
+<a id="option-1-configure-insecure-origins-http-mode" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Option 1: Configure Insecure Origins (HTTP Mode)<a href="#option-1-configure-insecure-origins-http-mode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>When using HTTP mode (<code>npm run dev-server</code>), the Meta Quest 3 browser needs explicit permission to access WebXR APIs from non-HTTPS origins. Here's how to configure it:</p>
+<ol>
+<li>
+<p><strong>Access Chrome flags:</strong></p>
+<ul>
+<li>Open the Meta Quest 3 Browser</li>
+<li>Navigate to <code>chrome://flags</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Enable insecure origins:</strong></p>
+<ul>
+<li>Search for &quot;insecure&quot; in the search field</li>
+<li>Locate the flag: <code>unsafely-treat-insecure-origin-as-secure</code></li>
+<li>Set the flag to <strong>Enabled</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>Add your development server:</strong></p>
+<ul>
+<li>In the text field below the flag, enter your web server URL</li>
+<li><strong>Format</strong>: <code>http://&lt;server-ip&gt;:8080</code></li>
+<li>Include the protocol (<code>http://</code>) and port number (<code>:8080</code>)</li>
+<li>Multiple URLs can be separated by commas if needed</li>
+</ul>
+</li>
+<li>
+<p><strong>Apply configuration:</strong></p>
+<ul>
+<li>Click or tap outside the text field to defocus</li>
+<li>A &quot;Relaunch&quot; button will appear at the bottom of the screen</li>
+<li>Click <strong>Relaunch</strong> to apply changes</li>
+</ul>
+</li>
+<li>
+<p><strong>Verify configuration:</strong></p>
+<ul>
+<li>Return to <code>chrome://flags</code> after relaunch</li>
+<li>Confirm the flag remains enabled and your URL is saved</li>
+</ul>
+</li>
+</ol>
+<a id="option-2-trust-ssl-certificates-https-mode" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Option 2: Trust SSL Certificates (HTTPS Mode)<a href="#option-2-trust-ssl-certificates-https-mode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>When using HTTPS mode (<code>npm run dev-server:https</code>), see <a href="#trust-ssl-certificates-https-mode">Trust SSL Certificates (HTTPS Mode)</a> for configuration instructions.</p>
+<a id="verify-webxr-permissions" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Verify WebXR Permissions<a href="#verify-webxr-permissions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>When connecting to a CloudXR.js application:</p>
+<ol>
+<li>The browser will prompt for WebXR permissions for the first time using it</li>
+<li>Select <strong>Allow</strong> when prompted</li>
+<li>The immersive session will begin after permission is granted</li>
+</ol>
+<blockquote>
+<p><strong>Tip</strong>: For rapid development and debugging, we recommend to test your CloudXR.js application on a desktop browser before checking in Meta Quest 3.</p>
+</blockquote>
+<a id="trust-ssl-certificates-https-mode" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Trust SSL Certificates (HTTPS Mode)<a href="#trust-ssl-certificates-https-mode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>When using HTTPS mode with self-signed certificates (for the web server and the WebSocket proxy), you need to configure the browser to trust these certificates.</p>
+<blockquote>
+<p><strong>Note</strong>: Certificate trust settings persist across browser sessions. You only need to perform this configuration once per certificate.</p>
+</blockquote>
+<a id="trust-websocket-proxy-certificate" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Trust WebSocket Proxy Certificate<a href="#trust-websocket-proxy-certificate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ol>
+<li>
+<p><strong>Access the proxy endpoint:</strong></p>
+<ul>
+<li>
+<p>In your headset browser, navigate to the sample client page and fill in the proxy IP as server IP and corresponding port, then click &quot;click xxx to accept cert&quot; as shown below. Or you can directly navigate to <code>https://&lt;proxy-ip&gt;:48322/</code></p>
+<p><img src="../media/accept-proxy-cert.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Accept certificate warning:</strong></p>
+<ul>
+<li>
+<p>Click <strong>Advanced</strong></p>
+</li>
+<li>
+<p>Click <strong>Proceed to <code>&lt;proxy-ip&gt;</code> (unsafe)</strong> or similar option</p>
+<p><img src="../media/accept-cert.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Expected behavior:</strong></p>
+<ul>
+<li>The page may display a <code>501 Not Implemented</code> error</li>
+<li><strong>This is expected</strong> - the proxy only handles WebSocket connections, not HTTP requests</li>
+<li>The certificate is now trusted for WebSocket connections</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: To persist certificates across container restarts, use a Docker volume when running the proxy: <code>docker run -v cloudxr-proxy-certs:/usr/local/etc/haproxy/certs ...</code>. The same certificate will be reused, so you only need to trust it once. Certificates are only regenerated if you explicitly remove the volume or mount your own certificate (see <a href="Networking_Setup.html#using-custom-certificates">Networking Setup - Using Custom Certificates</a>).</p>
+</blockquote>
+<a id="trust-web-application-certificate" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Trust Web Application Certificate<a href="#trust-web-application-certificate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ol>
+<li>
+<p><strong>Access the web application:</strong></p>
+<ul>
+<li>Open your XR headset browser</li>
+<li>Navigate to <code>https://&lt;server-ip&gt;:8080/</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Accept certificate warning:</strong></p>
+<ul>
+<li>
+<p>Click <strong>Advanced</strong></p>
+</li>
+<li>
+<p>Click <strong>Proceed to <code>&lt;server-ip&gt;</code> (unsafe)</strong> or similar option</p>
+<p><img src="../media/accept-cert.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Verify access:</strong></p>
+<ul>
+<li>The web application should load successfully</li>
+</ul>
+</li>
+</ol>
+<a id="network-configuration" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Network Configuration<a href="#network-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>For network and firewall configuration requirements, including port setup and bandwidth recommendations, see the <a href="Networking_Setup.html">Networking Setup Guide</a>.</p>
+<a id="common-issues-and-solutions" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Common Issues and Solutions<a href="#common-issues-and-solutions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="webxr-api-not-available" class="tsd-anchor"></a><h3 class="tsd-anchor-link">WebXR API Not Available<a href="#webxr-api-not-available" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p><strong>Symptoms:</strong></p>
+<ul>
+<li>Application displays &quot;WebXR not supported&quot; or similar error</li>
+<li>Connect button is disabled or missing</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Verify browser flags are configured correctly (<a href="#option-1-configure-insecure-origins-http-mode">HTTP mode example</a>)</li>
+<li>Ensure you're accessing via the configured URL exactly as specified</li>
+<li>Confirm the browser has been relaunched after changing flags</li>
+<li>Try accessing via incognito/private browsing mode</li>
+</ul>
+<a id="certificate-trust-issues" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Certificate Trust Issues<a href="#certificate-trust-issues" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p><strong>Symptoms:</strong></p>
+<ul>
+<li>Connection fails with security warnings</li>
+<li>WebSocket connection shows &quot;SSL certificate error&quot;</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Complete the certificate trust process for both web server and proxy</li>
+<li>Verify you clicked &quot;Proceed&quot; on the certificate warning pages</li>
+<li>Clear browser cache and retry the trust process</li>
+<li>For persistent issues, regenerate certificates</li>
+</ul>
+<a id="mixed-content-errors" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Mixed Content Errors<a href="#mixed-content-errors" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p><strong>Symptoms:</strong></p>
+<ul>
+<li>Console shows &quot;blocked by mixed content policy&quot; errors</li>
+<li>WebSocket connection fails from HTTPS page</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>When using <code>npm run dev-server:https</code>, ensure runtime connection uses <code>wss://</code> not <code>ws://</code></li>
+<li>Verify a WebSocket proxy is configured and running (see <a href="Networking_Setup.html#websocket-proxy-setup">Networking Setup examples</a>)</li>
+<li>Check that proxy URL is accessible and trusted</li>
+</ul>
+<a id="connection-drops-or-instability" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Connection Drops or Instability<a href="#connection-drops-or-instability" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p><strong>Symptoms:</strong></p>
+<ul>
+<li>Frequent disconnections during streaming</li>
+<li>Poor video quality or high latency</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Review <a href="Networking_Setup.html">Networking Setup Guide</a> for bandwidth and latency requirements</li>
+<li>Verify firewall allows traffic on required ports</li>
+<li>Ensure Wi-Fi connection is on 5GHz or 6GHz band</li>
+<li>Check for network congestion from other devices</li>
+</ul>
+<a id="next-steps" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Next Steps<a href="#next-steps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li>Configure networking and firewall: <a href="Networking_Setup.html">Networking Setup Guide</a></li>
+<li>Set up Isaac Lab teleoperation: <a href="Show_Cases.Isaac_Lab_Teleop.html">Isaac Lab Guide</a></li>
+<li>Set up Omniverse spatial streaming: <a href="Show_Cases.Omniverse_Spatial_Streaming.html">Omniverse Guide</a></li>
+</ul>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#client-setup-guide"><span>Client <wbr/>Setup <wbr/>Guide</span></a><ul><li><a href="#web-application-hosting"><span>Web <wbr/>Application <wbr/>Hosting</span></a></li><li><ul><li><a href="#http-mode-development"><span>HTTP <wbr/>Mode (<wbr/>Development)</span></a></li><li><a href="#https-mode-development-and-production"><span>HTTPS <wbr/>Mode (<wbr/>Development and <wbr/>Production)</span></a></li></ul></li><li><a href="#connection-mode-examples"><span>Connection <wbr/>Mode <wbr/>Examples</span></a></li><li><a href="#headset-configuration"><span>Headset <wbr/>Configuration</span></a></li><li><ul><li><a href="#pico-4-ultra-configuration"><span>Pico 4 <wbr/>Ultra <wbr/>Configuration</span></a></li><li><ul><li><a href="#browser-configuration"><span>Browser <wbr/>Configuration</span></a></li><li><a href="#additional-configuration"><span>Additional <wbr/>Configuration</span></a></li></ul></li><li><a href="#meta-quest-3-configuration"><span>Meta <wbr/>Quest 3 <wbr/>Configuration</span></a></li><li><ul><li><a href="#option-1-configure-insecure-origins-http-mode"><span>Option 1: <wbr/>Configure <wbr/>Insecure <wbr/>Origins (HTTP <wbr/>Mode)</span></a></li><li><a href="#option-2-trust-ssl-certificates-https-mode"><span>Option 2: <wbr/>Trust SSL <wbr/>Certificates (HTTPS <wbr/>Mode)</span></a></li><li><a href="#verify-webxr-permissions"><span>Verify <wbr/>WebXR <wbr/>Permissions</span></a></li></ul></li><li><a href="#trust-ssl-certificates-https-mode"><span>Trust SSL <wbr/>Certificates (HTTPS <wbr/>Mode)</span></a></li><li><ul><li><a href="#trust-websocket-proxy-certificate"><span>Trust <wbr/>Web<wbr/>Socket <wbr/>Proxy <wbr/>Certificate</span></a></li><li><a href="#trust-web-application-certificate"><span>Trust <wbr/>Web <wbr/>Application <wbr/>Certificate</span></a></li></ul></li></ul></li><li><a href="#network-configuration"><span>Network <wbr/>Configuration</span></a></li><li><a href="#common-issues-and-solutions"><span>Common <wbr/>Issues and <wbr/>Solutions</span></a></li><li><ul><li><a href="#webxr-api-not-available"><span>WebXR API <wbr/>Not <wbr/>Available</span></a></li><li><a href="#certificate-trust-issues"><span>Certificate <wbr/>Trust <wbr/>Issues</span></a></li><li><a href="#mixed-content-errors"><span>Mixed <wbr/>Content <wbr/>Errors</span></a></li><li><a href="#connection-drops-or-instability"><span>Connection <wbr/>Drops or <wbr/>Instability</span></a></li></ul></li><li><a href="#next-steps"><span>Next <wbr/>Steps</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">CloudXR.js SDK Documentation - v6.0.1-beta</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

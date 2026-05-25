@@ -1,0 +1,44 @@
+{
+  "_comment": [
+    "SteamVR application manifest for the UST Fourier GR1T2 teleop client.",
+    "",
+    "Why this file exists:",
+    "  The OpenVR Input v2 system requires every application that supplies",
+    "  an actions.json to be REGISTERED with SteamVR (via",
+    "  IVRApplications::AddApplicationManifest + IdentifyApplication).",
+    "  Without this registration:",
+    "    1. SteamVR cannot show the app in",
+    "       Settings -> Controllers -> Manage Controller Bindings, so the",
+    "       user has no UI to activate the binding;",
+    "    2. ``default_bindings`` declared in actions.json are never auto-",
+    "       applied (SteamVR identifies us as anonymous python.exe and",
+    "       refuses to honour bindings on principle);",
+    "    3. ``getSkeletalActionData`` returns ``bActive=False`` and",
+    "       ``getSkeletalTrackingLevel`` raises ``InputError_IPCError``",
+    "       because the binding-resolver IPC has no app to look up.",
+    "",
+    "  The ``app_key`` here MUST match the ``app_key`` in actions.json.",
+    "",
+    "  ``binary_path_windows`` is informational for SteamVR's UI -- it is",
+    "  used when SteamVR needs to AUTO-launch the app (e.g. when a user",
+    "  edits the binding while the app is closed).  Because we always",
+    "  launch by hand from the conda env, the value just needs to be a",
+    "  real executable; ``python.exe`` is fine."
+  ],
+  "source": "builtin",
+  "applications": [
+    {
+      "app_key": "ust.teleop.fourier_gr1t2",
+      "launch_type": "binary",
+      "binary_path_windows": "python.exe",
+      "is_dashboard_overlay": false,
+      "action_manifest_path": "actions.json",
+      "strings": {
+        "en_us": {
+          "name": "UST Teleop GR1T2 Fourier",
+          "description": "Fourier GR1T2 + UDCAP VR Glove teleop for Isaac Lab kitchen sorting"
+        }
+      }
+    }
+  ]
+}

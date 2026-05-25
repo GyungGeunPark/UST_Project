@@ -1,0 +1,25 @@
+# Server Configuration for Isaac Sim LLM Robot Control
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins:
+    - "*"  # Restrict in production
+
+websocket:
+  status_broadcast_hz: 10  # 10Hz status updates
+  ping_interval: 30  # seconds
+  max_clients: 50
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/robot_control.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+
+emergency_stop:
+  watchdog_enabled: true
+  watchdog_timeout: 5.0  # seconds
+  keyboard_enabled: true
+  keyboard_key: "escape"

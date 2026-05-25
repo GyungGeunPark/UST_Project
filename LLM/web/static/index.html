@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac Sim Robot Control</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Isaac Sim Robot Control</h1>
+            <div class="connection-status" id="connection-status">
+                <span class="status-dot"></span>
+                <span class="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left: Control Panel -->
+            <section class="control-panel">
+                <!-- Text Input -->
+                <div class="input-section">
+                    <h2>Command Input</h2>
+                    <div class="command-input-wrapper">
+                        <input type="text"
+                               id="command-input"
+                               placeholder="Enter command (e.g., Move forward 10cm)"
+                               autocomplete="off">
+                        <button id="send-btn" class="primary-btn">Send</button>
+                    </div>
+                    <div class="quick-commands">
+                        <span class="hint">Quick commands:</span>
+                        <button class="quick-cmd" data-cmd="forward 10cm">Forward</button>
+                        <button class="quick-cmd" data-cmd="backward 10cm">Backward</button>
+                        <button class="quick-cmd" data-cmd="open gripper">Open</button>
+                        <button class="quick-cmd" data-cmd="close gripper">Close</button>
+                    </div>
+                </div>
+
+                <!-- Direction Pad -->
+                <div class="direction-section">
+                    <h2>Direction Control</h2>
+                    <div class="direction-pad">
+                        <div class="row">
+                            <button class="dir-btn" data-action="up">Up</button>
+                        </div>
+                        <div class="row">
+                            <button class="dir-btn" data-action="left">Left</button>
+                            <button class="dir-btn center" data-action="stop">Stop</button>
+                            <button class="dir-btn" data-action="right">Right</button>
+                        </div>
+                        <div class="row">
+                            <button class="dir-btn" data-action="down">Down</button>
+                        </div>
+                    </div>
+                    <div class="forward-backward">
+                        <button class="dir-btn wide" data-action="forward">Forward</button>
+                        <button class="dir-btn wide" data-action="backward">Backward</button>
+                    </div>
+                    <div class="distance-slider">
+                        <label>Distance: <span id="distance-value">10</span>cm</label>
+                        <input type="range" id="distance-slider" min="1" max="50" value="10">
+                    </div>
+                </div>
+
+                <!-- Gripper Control -->
+                <div class="gripper-section">
+                    <h2>Gripper Control</h2>
+                    <div class="gripper-controls">
+                        <button class="gripper-btn open" data-action="grip_open">
+                            <span class="icon">Open</span>
+                        </button>
+                        <button class="gripper-btn close" data-action="grip_close">
+                            <span class="icon">Close</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Emergency Stop -->
+                <div class="emergency-section">
+                    <button id="emergency-btn" class="emergency-btn">
+                        EMERGENCY STOP
+                    </button>
+                    <button id="reset-btn" class="reset-btn" disabled>
+                        Reset
+                    </button>
+                </div>
+            </section>
+
+            <!-- Right: Status and Log -->
+            <section class="status-panel">
+                <!-- Robot Status -->
+                <div class="robot-status">
+                    <h2>Robot Status</h2>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <span class="label">State</span>
+                            <span class="value" id="robot-state">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Position X</span>
+                            <span class="value" id="pos-x">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Position Y</span>
+                            <span class="value" id="pos-y">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Position Z</span>
+                            <span class="value" id="pos-z">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Gripper</span>
+                            <span class="value" id="gripper-state">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="label">Commands</span>
+                            <span class="value" id="command-count">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Command Log -->
+                <div class="command-log">
+                    <h2>Command Log</h2>
+                    <div class="log-container" id="log-container">
+                        <!-- Log entries will be added here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>Isaac Sim LLM Robot Control v1.0</span>
+            <span id="uptime">Uptime: --:--:--</span>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

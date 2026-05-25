@@ -1,0 +1,230 @@
+<!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Teleoperating on XR Headsets | CloudXR.js SDK Documentation - v6.0.1-beta</title><meta name="description" content="Documentation for CloudXR.js SDK Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">CloudXR.js SDK Documentation - v6.0.1-beta</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">CloudXR.js SDK Documentation</a></li><li><a href="Show_Cases.html">Show Cases</a></li><li><a href="Show_Cases.Isaac_Lab_Teleop.html">Isaac Lab Teleop</a></li><li><a href="Show_Cases.Isaac_Lab_Teleop.Teleoperating_on_XR_Headsets.html">Teleoperating on XR Headsets</a></li></ul></div><div class="tsd-panel tsd-typography"><a id="teleoperating-on-xr-headsets" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Teleoperating on XR Headsets<a href="#teleoperating-on-xr-headsets" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1><a id="🔨-build-client-and-host-web-server" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🔨 Build Client and Host Web Server<a href="#🔨-build-client-and-host-web-server" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Once you have Isaac Lab and the CloudXR Runtime running, you can build and host the web server for the CloudXR.js client application.</p>
+<p>Choose <strong>Option A</strong> (Docker) for a quick containerized setup, or <strong>Option B</strong> (Local) for development with hot reloading.</p>
+<a id="option-a-docker-recommended-for-quick-start" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Option A: Docker (Recommended for Quick Start)<a href="#option-a-docker-recommended-for-quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="prerequisites" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Prerequisites<a href="#prerequisites" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a> installed and running</li>
+</ul>
+<a id="build-and-run" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Build and Run<a href="#build-and-run" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="bash"><span class="hl-0"># Build the Docker image (for isaac example)</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">build</span><span class="hl-2"> </span><span class="hl-4">-t</span><span class="hl-2"> </span><span class="hl-3">cloudxr-isaac-sample</span><span class="hl-2"> </span><span class="hl-4">--build-arg</span><span class="hl-2"> </span><span class="hl-3">EXAMPLE_NAME=isaac</span><span class="hl-2"> </span><span class="hl-3">.</span><br/><br/><span class="hl-0"># Run the container</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-4">-d</span><span class="hl-2"> </span><span class="hl-4">--name</span><span class="hl-2"> </span><span class="hl-3">cloudxr-isaac-sample</span><span class="hl-2"> </span><span class="hl-4">-p</span><span class="hl-2"> </span><span class="hl-3">8080:80</span><span class="hl-2"> </span><span class="hl-4">-p</span><span class="hl-2"> </span><span class="hl-3">8443:443</span><span class="hl-2"> </span><span class="hl-3">cloudxr-isaac-sample</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Open <code>http://localhost:8080</code> (HTTP) or <code>https://localhost:8443</code> (HTTPS) in your browser.</p>
+<blockquote>
+<p><strong>Note</strong>: When using HTTPS, you'll need to accept the self-signed certificate warning in your browser.</p>
+</blockquote>
+<p>To stop and remove the container:</p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">stop</span><span class="hl-2"> </span><span class="hl-3">cloudxr-isaac-sample</span><span class="hl-2"> &amp;&amp; </span><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">rm</span><span class="hl-2"> </span><span class="hl-3">cloudxr-isaac-sample</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="option-b-local-development" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Option B: Local Development<a href="#option-b-local-development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="prerequisites-1" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Prerequisites<a href="#prerequisites-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li><strong>Node.js</strong> (v20.19.0 or later) and <strong>npm</strong>
+<ul>
+<li>Download and installation instructions: <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a></li>
+<li>Verify installation: <code>node --version</code> and <code>npm --version</code></li>
+</ul>
+</li>
+</ul>
+<a id="build-and-run-1" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Build and Run<a href="#build-and-run-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ol>
+<li><strong>Navigate to Example Directory</strong></li>
+</ol>
+<pre><code class="bash"><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">isaac</span>
+</code><button type="button">Copy</button></pre>
+
+<ol start="2">
+<li><strong>Install Dependencies</strong></li>
+</ol>
+<pre><code class="bash"><span class="hl-0"># For this early access release, install the SDK from the provided tarball</span><br/><span class="hl-0"># This step will not be required when the SDK is publicly accessible</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span><span class="hl-2"> </span><span class="hl-3">/path/to/nvidia-cloudxr-6.0.1-beta.tgz</span><br/><br/><span class="hl-0"># Install remaining dependencies</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">install</span>
+</code><button type="button">Copy</button></pre>
+
+<ol start="3">
+<li><strong>Choose Hosting Mode</strong></li>
+</ol>
+<p>Select the appropriate server mode based on your deployment requirements:</p>
+<p><strong>For local development (HTTP):</strong></p>
+<pre><code class="bash"><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev-server</span>
+</code><button type="button">Copy</button></pre>
+
+<ul>
+<li>Local: <code>http://localhost:8080/</code></li>
+<li>Network: <code>http://&lt;server-ip&gt;:8080/</code></li>
+<li>Supports both <code>ws://</code> (direct) and <code>wss://</code> (proxied) runtime connections</li>
+<li><strong>Note</strong>: HTTP mode is not supported on Pico 4 Ultra</li>
+</ul>
+<p><strong>For local development or production (HTTPS):</strong></p>
+<pre><code class="bash"><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev-server:https</span>
+</code><button type="button">Copy</button></pre>
+
+<ul>
+<li>Local: <code>https://localhost:8080/</code></li>
+<li>Network: <code>https://&lt;server-ip&gt;:8080/</code></li>
+<li>Generates self-signed certificates for development, use custom certificates for production</li>
+<li>See <a href="Client_Setup.html#trust-ssl-certificates-https-mode">Client Setup - Trust SSL Certificates</a> for trusting certs in your device</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: When using HTTPS mode, you must configure a WebSocket proxy. Browsers enforce mixed content policies that block insecure <code>ws://</code> connections from HTTPS pages. See <a href="Networking_Setup.html#websocket-proxy-setup">Networking Setup - WebSocket Proxy</a> for proxy configuration example.</p>
+</blockquote>
+<a id="🖥️-test-from-the-same-computer-optional-but-recommended" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🖥️ Test from the Same Computer (Optional but Recommended)<a href="#🖥️-test-from-the-same-computer-optional-but-recommended" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>For local development, our web app automatically loads IWER (Immersive Web Emulator Runtime) to emulate an XR headset when no physical XR device is detected.</p>
+<ol>
+<li>
+<p>Make sure you have:</p>
+<ul>
+<li>Chromium browser or <a href="https://www.google.com/chrome">Google Chrome</a></li>
+<li>IWER will automatically load when you start the application
+<ul>
+<li>If you have installed the <a href="https://chromewebstore.google.com/detail/immersive-web-emulator/cgffilbpcibhmcfbgggfhfolhkfbhmik?hl=en">Immersive Web Emulator Chrome extension</a>, please disable it as it will conflict with IWER</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Ensure your CloudXR Runtime and OpenXR application are running</p>
+</li>
+<li>
+<p>Navigate to the web application based on your chosen hosting mode:</p>
+<ul>
+<li>HTTP mode: <code>http://localhost:8080/</code></li>
+<li>HTTPS mode: <code>https://localhost:8080/</code>
+<ul>
+<li>Accept the cert (see <a href="Client_Setup.html#trust-web-application-certificate">Client Setup - Trust Web Cert</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Make sure you see the following messaging, indicating IWER is loaded</p>
+<p><img src="../media/iwer-message.png" alt=""></p>
+</li>
+<li>
+<p>(HTTPS mode only) Fill in the <code>Proxy URL</code> if you have any, or click to accept the cert</p>
+<p><img src="../media/accept-proxy-cert.png" alt=""></p>
+</li>
+<li>
+<p>Click <code>CONNECT</code></p>
+</li>
+</ol>
+<p>If successful, you should see the green <code>CONNECT</code> button change to <code>CONNECT (STREAMING)</code>, and the streamed content from your server application will appear in your browser!</p>
+<p>You could use the develop UI from IWER to emulate device position and input, for example:</p>
+<p><img src="../media/iwer-buttons.png" alt=""></p>
+<a id="🥽-test-from-xr-headset" class="tsd-anchor"></a><h2 class="tsd-anchor-link">🥽 Test from XR Headset<a href="#🥽-test-from-xr-headset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Once you've validated the setup works locally, you can test with an actual XR headset.</p>
+<p><strong>Supported Headsets:</strong></p>
+<ul>
+<li><strong>Meta Quest 3</strong> (OS version 79 or later) - Supports both HTTP and HTTPS modes</li>
+<li><strong>Pico 4 Ultra</strong> (Pico OS 15.4.4U or later) - HTTPS mode required, <strong>HTTP mode not supported</strong></li>
+</ul>
+<a id="prerequisites-2" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Prerequisites<a href="#prerequisites-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>
+<p><strong>Configure Headset</strong>: Follow the appropriate browser configuration guide:</p>
+<ul>
+<li>Meta Quest 3: <a href="Client_Setup.html#meta-quest-3-configuration">Meta Quest 3 Configuration</a>
+<ul>
+<li>Enable WebXR for HTTP origins (if using <code>npm run dev-server</code>)</li>
+<li>Trust SSL certificates (if using <code>npm run dev-server:https</code>)</li>
+</ul>
+</li>
+<li>Pico 4 Ultra: <a href="Client_Setup.html#pico-4-ultra-configuration">Pico 4 Ultra Configuration</a>
+<ul>
+<li>Trust SSL certificates (HTTPS mode <code>npm run dev-server:https</code> required)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Configure Network</strong>: Ensure required ports are open:</p>
+<ul>
+<li>Web server: Port 8080 (TCP) or your configured port</li>
+<li>CloudXR Runtime: Port 49100 (TCP) and 47998 (UDP)</li>
+<li>WebSocket proxy (if using HTTPS): Port 48322 (TCP) or your configured port</li>
+<li>See <a href="Networking_Setup.html#firewall-configuration">Networking Setup - Firewall Configuration</a> for details</li>
+</ul>
+</li>
+</ol>
+<a id="connection-configuration" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Connection Configuration<a href="#connection-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>
+<p><strong>Navigate to the web application</strong> on your headset browser:</p>
+<ul>
+<li>HTTP mode (not supported on Pico 4 Ultra): <code>http://&lt;server-ip&gt;:8080/</code></li>
+<li>HTTPS mode: <code>https://&lt;server-ip&gt;:8080/</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Configure server connection</strong> in the web application:</p>
+<ul>
+<li>Enter your server IP address</li>
+<li>Enter the port:
+<ul>
+<li><strong>Port 49100</strong> - Direct connection (HTTP mode only)</li>
+<li><strong>Port 48322</strong> - Proxied connection (required for HTTPS mode, optional for HTTP mode)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Grant permissions</strong>:</p>
+<ul>
+<li>Click <code>CONNECT</code></li>
+<li>Allow WebXR permissions when prompted</li>
+</ul>
+</li>
+</ol>
+<a id="application-specific-configuration" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Application-Specific Configuration<a href="#application-specific-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Before connecting, verify your Isaac Lab server is ready:</p>
+<ul>
+<li>CloudXR Runtime is running</li>
+<li>Isaac Lab is running with the desired task</li>
+<li>Isaac Lab is using <code>System OpenXR Runtime</code></li>
+<li>Isaac Lab is in AR mode (<code>Start AR</code> button pressed)</li>
+</ul>
+<p>Configure the following application settings in the client web page's <strong>Debug Settings</strong> section:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Recommended Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preferred Reference Space</td>
+<td><code>local</code></td>
+<td>Required for proper tracking</td>
+</tr>
+<tr>
+<td>X Offset (cm)</td>
+<td><code>0</code></td>
+<td>Horizontal positioning</td>
+</tr>
+<tr>
+<td>Y Offset (cm)</td>
+<td><code>-155</code></td>
+<td>Vertical positioning</td>
+</tr>
+<tr>
+<td>Z Offset (cm)</td>
+<td><code>10</code></td>
+<td>Depth positioning</td>
+</tr>
+<tr>
+<td>Teleoperation Countdown Duration (s)</td>
+<td>User preference</td>
+<td>Time before recording starts (optional)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: Offset values are task-dependent. Adjust based on robot height and workspace as needed.</p>
+</blockquote>
+<a id="how-to-use" class="tsd-anchor"></a><h3 class="tsd-anchor-link">How to use<a href="#how-to-use" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Once streaming starts, you will see a window to your right with teleoperation controls:</p>
+<p><img src="../media/react-isaac-sample-controls-start.jpg" alt="Isaac Teleoperation Buttons"></p>
+<ul>
+<li><code>Countdown</code> - you can use the <code>-</code> (minus) and <code>+</code> (plus) buttons to adjust the countdown timer for starting teleoperation.</li>
+<li><code>Play</code> - this will start the countdown. Once countdown is finished, the teleoperation session recording starts.</li>
+<li><code>Reset</code> - this will both <strong>stop and reset</strong> the teleoperation session. After pressing this you can press <code>Play</code> to continue teleoperation (following the countdown timer).</li>
+<li><code>Disconnect</code> - this will exit the whole streaming and immersive session</li>
+</ul>
+<p>To start teleoperating, click <code>Play</code>. It will start counting down in seconds as configured.</p>
+<p><img src="../media/react-isaac-sample-controls-countdown.jpg" alt="Isaac Teleoperation Countdown"></p>
+<p>During the countdown, position your hands at the right place and wait for recording to start.</p>
+<p>Whenever you complete a task, it will automatically start a new recording and generate the recording file.</p>
+<p><img src="../media/react-isaac-sample-controls-running.jpg" alt="Isaac Teleoperation Running"></p>
+<p>To stop teleoperating and reset the position of robot arm, click the <code>Reset</code> button.</p>
+<a id="next" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Next<a href="#next" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p><a href="Show_Cases.Isaac_Lab_Teleop.Isaac_Lab_Teleop_Troubleshooting.html">Troubleshooting Isaac Lab Teleoperation using CloudXR.js</a></p>
+<a id="previous" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Previous<a href="#previous" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p><a href="Show_Cases.Isaac_Lab_Teleop.Setting_Up_Server_for_Teleoperation.html">Running Isaac Lab with the CloudXR Runtime</a></p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#teleoperating-on-xr-headsets"><span>Teleoperating on XR <wbr/>Headsets</span></a><ul><li><a href="#🔨-build-client-and-host-web-server"><span>🔨 <wbr/>Build <wbr/>Client and <wbr/>Host <wbr/>Web <wbr/>Server</span></a></li><li><ul><li><a href="#option-a-docker-recommended-for-quick-start"><span>Option <wbr/>A: <wbr/>Docker (<wbr/>Recommended for <wbr/>Quick <wbr/>Start)</span></a></li><li><ul><li><a href="#prerequisites"><span>Prerequisites</span></a></li><li><a href="#build-and-run"><span>Build and <wbr/>Run</span></a></li></ul></li><li><a href="#option-b-local-development"><span>Option <wbr/>B: <wbr/>Local <wbr/>Development</span></a></li><li><ul><li><a href="#prerequisites-1"><span>Prerequisites</span></a></li><li><a href="#build-and-run-1"><span>Build and <wbr/>Run</span></a></li></ul></li></ul></li><li><a href="#🖥️-test-from-the-same-computer-optional-but-recommended"><span>🖥️ <wbr/>Test from the <wbr/>Same <wbr/>Computer (<wbr/>Optional but <wbr/>Recommended)</span></a></li><li><a href="#🥽-test-from-xr-headset"><span>🥽 <wbr/>Test from XR <wbr/>Headset</span></a></li><li><ul><li><a href="#prerequisites-2"><span>Prerequisites</span></a></li><li><a href="#connection-configuration"><span>Connection <wbr/>Configuration</span></a></li><li><a href="#application-specific-configuration"><span>Application-<wbr/>Specific <wbr/>Configuration</span></a></li><li><a href="#how-to-use"><span>How to use</span></a></li></ul></li><li><a href="#next"><span>Next</span></a></li><li><a href="#previous"><span>Previous</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">CloudXR.js SDK Documentation - v6.0.1-beta</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

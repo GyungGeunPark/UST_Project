@@ -1,0 +1,33 @@
+# Workspace Configuration for Isaac Sim LLM Robot Control
+
+bounds:
+  min: [-2.0, -2.0, 0.0]  # meters [x, y, z]
+  max: [2.0, 2.0, 1.5]    # meters [x, y, z]
+
+velocity_limits:
+  manipulator:
+    max_linear: 0.5       # m/s
+    max_angular: 1.0      # rad/s
+    max_acceleration: 2.0  # m/s^2
+    max_angular_acceleration: 5.0  # rad/s^2
+  base:
+    max_linear: 1.0       # m/s
+    max_angular: 1.5      # rad/s
+
+safety:
+  workspace_margin: 0.05  # meters
+  warning_distance: 0.1   # meters
+  self_collision_check: true
+  environment_collision_check: true
+  collision_min_distance: 0.02  # meters
+  require_all_checks: true
+  auto_emergency_on_critical: true
+
+exclusion_zones: []
+  # Example:
+  # - type: "sphere"
+  #   center: [0.5, 0.5, 0.5]
+  #   radius: 0.1
+  # - type: "box"
+  #   min: [0.0, 0.0, 0.0]
+  #   max: [0.2, 0.2, 0.2]

@@ -1,0 +1,52 @@
+# Robot Configuration for Isaac Sim LLM Robot Control
+# Stretch Robot Configuration
+
+robot:
+  name: "stretch"
+  prim_path: "/World/stretch"
+  type: "mobile_manipulator"
+
+files:
+  urdf_path: "${ISAACLAB_PATH}/source/extensions/omni.isaac.lab_assets/data/robots/stretch/stretch.urdf"
+  usd_path: "${ISAACLAB_PATH}/source/extensions/omni.isaac.lab_assets/data/robots/stretch/stretch.usd"
+  lula_description_path: "${ISAACLAB_PATH}/source/extensions/omni.isaac.lab_assets/data/robots/stretch/stretch_lula.yaml"
+
+joints:
+  wheel:
+    names:
+      - "joint_left_wheel"
+      - "joint_right_wheel"
+    indices: [0, 1]
+    radius: 0.05  # meters
+    base_width: 0.33  # meters
+    max_velocity: 10.0  # rad/s
+
+  arm:
+    names:
+      - "joint_lift"
+      - "joint_arm_l0"
+      - "joint_arm_l1"
+      - "joint_arm_l2"
+      - "joint_arm_l3"
+      - "joint_wrist_yaw"
+    indices: [2, 3, 4, 5, 6, 7]
+    end_effector_frame: "link_gripper"
+    lower_limits: [0.0, 0.0, 0.0, 0.0, 0.0, -3.14]
+    upper_limits: [1.1, 0.13, 0.13, 0.13, 0.13, 3.14]
+    velocity_limits: [0.2, 0.2, 0.2, 0.2, 0.2, 1.0]
+    effort_limits: [100.0, 100.0, 100.0, 100.0, 100.0, 50.0]
+
+  gripper:
+    names:
+      - "joint_gripper_finger_left"
+      - "joint_gripper_finger_right"
+    indices: [8, 9]
+    open_position: 0.04  # meters
+    close_position: 0.0  # meters
+    max_force: 20.0  # Newtons
+
+control:
+  position_stiffness: 100.0
+  position_damping: 10.0
+  velocity_stiffness: 50.0
+  velocity_damping: 5.0

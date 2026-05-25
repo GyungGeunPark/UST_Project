@@ -1,0 +1,26 @@
+{
+  "_comment": "Auto-generated (grip track).  Virtual Desktop Full Body segments were auto-mapped.  For LHR-* physical trackers, replace each 'TODO' with one of: waist, left_forearm, right_forearm.  Leg slots are unused by the grip retargeter -- leave role=\"\" or remove them entirely.  PICO Connect Motion Trackers carry the 'TODO_pico' tag instead (see scripts/diagnose_pico_connect.py).",
+  "hmd": "auto",
+  "trackers": {
+    "Waist": {
+      "role": "TODO_pico",
+      "steamvr_role": "TODO_pico"
+    },
+    "LeftFoot": {
+      "role": "TODO_pico",
+      "steamvr_role": "TODO_pico"
+    },
+    "RightFoot": {
+      "role": "TODO_pico",
+      "steamvr_role": "TODO_pico"
+    },
+    "LeftWrist": {
+      "role": "TODO_pico",
+      "steamvr_role": "TODO_pico"
+    },
+    "RightWrist": {
+      "role": "TODO_pico",
+      "steamvr_role": "TODO_pico"
+    }
+  }
+}

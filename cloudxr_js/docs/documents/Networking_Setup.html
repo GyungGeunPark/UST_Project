@@ -1,0 +1,446 @@
+<!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Networking Setup | CloudXR.js SDK Documentation - v6.0.1-beta</title><meta name="description" content="Documentation for CloudXR.js SDK Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">CloudXR.js SDK Documentation - v6.0.1-beta</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">CloudXR.js SDK Documentation</a></li><li><a href="Networking_Setup.html">Networking Setup</a></li></ul></div><div class="tsd-panel tsd-typography"><a id="networking-setup" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Networking Setup<a href="#networking-setup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1><p>Proper network configuration is essential for high-quality CloudXR streaming. This guide covers network requirements, configuration, and optimization for CloudXR.js applications.</p>
+<a id="connection-architecture" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Connection Architecture<a href="#connection-architecture" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>CloudXR.js operates using a two-tier connection architecture:</p>
+<a id="1-client-web-server" class="tsd-anchor"></a><h3 class="tsd-anchor-link">1. Client Web Server<a href="#1-client-web-server" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Hosts your immersive web application and serves it to client devices.</p>
+<ul>
+<li>
+<p><strong>HTTP Mode</strong>: <code>npm run dev-server</code></p>
+<ul>
+<li>Local: <code>http://localhost:8080/</code></li>
+<li>Network: <code>http://&lt;server-ip&gt;:8080/</code></li>
+<li>Use case: Local development, trusted networks</li>
+</ul>
+</li>
+<li>
+<p><strong>HTTPS Mode</strong>: <code>npm run dev-server:https</code></p>
+<ul>
+<li>Local: <code>https://localhost:8080/</code></li>
+<li>Network: <code>https://&lt;server-ip&gt;:8080/</code></li>
+<li>Use case: Local development and production deployments, remote access</li>
+</ul>
+</li>
+</ul>
+<a id="2-cloudxr-runtime-connection" class="tsd-anchor"></a><h3 class="tsd-anchor-link">2. CloudXR Runtime Connection<a href="#2-cloudxr-runtime-connection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Handles the XR streaming protocol between the client and CloudXR Runtime.</p>
+<ul>
+<li>
+<p><strong>Direct Connection</strong>: <code>ws://&lt;server-ip&gt;:49100</code></p>
+<ul>
+<li>Uses unsecured WebSocket protocol (<code>ws://</code>)</li>
+<li>No proxy required</li>
+<li>Suitable for HTTP clients and local networks</li>
+</ul>
+</li>
+<li>
+<p><strong>Proxied Connection</strong>: <code>wss://&lt;proxy-ip&gt;:48322</code></p>
+<ul>
+<li>Uses WebSocket Secure protocol (<code>wss://</code> - WebSocket over TLS/SSL)</li>
+<li>Requires WebSocket proxy with TLS support</li>
+<li><strong>Required</strong> for HTTPS clients (browsers enforce mixed content policy)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Important</strong>: When hosting your web application using HTTPS (<code>npm run dev-server:https</code>), you must configure a WebSocket proxy and connect using <code>wss://</code>. Browsers block non-secure WebSocket (<code>ws://</code>) connections from secure (HTTPS) pages due to mixed content security policies.</p>
+</blockquote>
+<p>For detailed client configuration instructions, see the <a href="Client_Setup.html">Client Setup Guide</a>.</p>
+<a id="network-requirements" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Network Requirements<a href="#network-requirements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="bandwidth-requirements" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Bandwidth Requirements<a href="#bandwidth-requirements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Recommended</th>
+<th>Min/Max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downstream Available Bandwidth</td>
+<td>&gt;200Mbps</td>
+<td>&gt;100Mbps</td>
+</tr>
+<tr>
+<td>Client-to-Server Ping</td>
+<td>&lt;20ms</td>
+<td>&lt;40ms</td>
+</tr>
+<tr>
+<td>Downstream/Upstream Jitter</td>
+<td>1ms</td>
+<td>4ms</td>
+</tr>
+<tr>
+<td>Downstream Packet Loss</td>
+<td>0%</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>Wifi Channel</td>
+<td>5GHz/6GHz</td>
+<td>5GHz</td>
+</tr>
+<tr>
+<td>Wifi Channel Width</td>
+<td>80Mhz</td>
+<td>40Mhz</td>
+</tr>
+</tbody>
+</table>
+<a id="network-topology" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Network Topology<a href="#network-topology" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>For optimal performance, use a dedicated network setup:</p>
+<pre><code><span class="hl-2">[</span><span class="hl-5">CloudXR</span><span class="hl-2"> </span><span class="hl-5">Server</span><span class="hl-2">] ←→ [</span><span class="hl-5">Router</span><span class="hl-2">] ←→ [</span><span class="hl-5">Client</span><span class="hl-2"> </span><span class="hl-5">Device</span><span class="hl-2">]</span><br/><span class="hl-2">     (</span><span class="hl-5">Ethernet</span><span class="hl-2">)      (</span><span class="hl-5">WiFi</span><span class="hl-2"> </span><span class="hl-7">6</span><span class="hl-2">)    (</span><span class="hl-5">Meta</span><span class="hl-2"> </span><span class="hl-5">Quest</span><span class="hl-2"> </span><span class="hl-7">3</span><span class="hl-2">)</span>
+</code><button>Copy</button></pre>
+
+<p><strong>Key considerations:</strong></p>
+<ul>
+<li>Use wired connection for the server</li>
+<li>Dedicate WiFi channel for the client device</li>
+<li>Minimize network hops between server and client</li>
+<li>Avoid network congestion from other devices</li>
+</ul>
+<a id="wifi-configuration" class="tsd-anchor"></a><h2 class="tsd-anchor-link">WiFi Configuration<a href="#wifi-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="recommended-settings" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Recommended Settings<a href="#recommended-settings" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li><strong>Frequency Band</strong>: 5GHz or 6GHz (avoid 2.4GHz)</li>
+<li><strong>Channel Width</strong>: 80MHz or 160MHz</li>
+<li><strong>Security</strong>: WPA3 (WPA2 acceptable)</li>
+<li><strong>Channel Selection</strong>: Use non-overlapping channels</li>
+</ul>
+<a id="router-configuration" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Router Configuration<a href="#router-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li><strong>Enable 5GHz/6GHz bands</strong> with separate SSIDs</li>
+<li><strong>Disable 2.4GHz</strong> if possible to avoid interference</li>
+<li><strong>Set fixed channels</strong> instead of auto-selection</li>
+<li><strong>Enable QoS</strong> for traffic prioritization</li>
+<li><strong>Disable band steering</strong> to prevent automatic switching</li>
+</ol>
+<a id="firewall-configuration" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Firewall Configuration<a href="#firewall-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The CloudXR Runtime attempts to open the required ports on the workstation firewall when started. This requires users to respond to an elevated prompt. If this is not possible, you may need to manually configure ports or disable the firewall entirely. Similarly, the WiFi network should also be configured to allow traffic on these ports.</p>
+<p>Here is the list of ports that must be open:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Protocol</th>
+<th>Server Port</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebSocket</td>
+<td>TCP</td>
+<td>49100</td>
+<td>CloudXR Runtime signaling port</td>
+</tr>
+<tr>
+<td>Video and Audio Stream</td>
+<td>UDP</td>
+<td>47998</td>
+<td>CloudXR Runtime media port</td>
+</tr>
+<tr>
+<td>WebSocket Proxy</td>
+<td>TCP</td>
+<td>48322</td>
+<td>Default <code>wss://</code> proxy port (if using HTTPS)</td>
+</tr>
+</tbody>
+</table>
+<a id="for-windows" class="tsd-anchor"></a><h3 class="tsd-anchor-link">For Windows<a href="#for-windows" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="powershell"><span class="hl-0"># Allow CloudXR Runtime ports</span><br/><span class="hl-2">netsh advfirewall firewall add rule name=</span><span class="hl-3">&quot;CloudXR Signaling&quot;</span><span class="hl-2"> dir=</span><span class="hl-9">in</span><span class="hl-2"> action=allow protocol=TCP localport=</span><span class="hl-7">49100</span><br/><span class="hl-2">netsh advfirewall firewall add rule name=</span><span class="hl-3">&quot;CloudXR Media&quot;</span><span class="hl-2"> dir=</span><span class="hl-9">in</span><span class="hl-2"> action=allow protocol=UDP localport=</span><span class="hl-7">47998</span><br/><br/><span class="hl-0"># Allow wss:// proxy port (if using HTTPS)</span><br/><span class="hl-2">netsh advfirewall firewall add rule name=</span><span class="hl-3">&quot;CloudXR wss:// Proxy&quot;</span><span class="hl-2"> dir=</span><span class="hl-9">in</span><span class="hl-2"> action=allow protocol=TCP localport=</span><span class="hl-7">48322</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="for-ubuntu-linux" class="tsd-anchor"></a><h3 class="tsd-anchor-link">For Ubuntu Linux<a href="#for-ubuntu-linux" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="bash"><span class="hl-0"># Allow CloudXR Runtime ports</span><br/><span class="hl-1">sudo</span><span class="hl-2"> </span><span class="hl-3">ufw</span><span class="hl-2"> </span><span class="hl-3">allow</span><span class="hl-2"> </span><span class="hl-3">49100/tcp</span><br/><span class="hl-1">sudo</span><span class="hl-2"> </span><span class="hl-3">ufw</span><span class="hl-2"> </span><span class="hl-3">allow</span><span class="hl-2"> </span><span class="hl-3">47998/udp</span><br/><br/><span class="hl-0"># Allow wss:// proxy port (if using HTTPS)</span><br/><span class="hl-1">sudo</span><span class="hl-2"> </span><span class="hl-3">ufw</span><span class="hl-2"> </span><span class="hl-3">allow</span><span class="hl-2"> </span><span class="hl-3">48322/tcp</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="troubleshooting-network-issues" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Troubleshooting Network Issues<a href="#troubleshooting-network-issues" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="external-tools" class="tsd-anchor"></a><h3 class="tsd-anchor-link">External Tools<a href="#external-tools" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="bandwidth-testing" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Bandwidth Testing<a href="#bandwidth-testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="bash"><span class="hl-0"># Test bandwidth between server and client</span><br/><span class="hl-1">iperf3</span><span class="hl-2"> </span><span class="hl-4">-s</span><span class="hl-2">  </span><span class="hl-0"># On server</span><br/><span class="hl-1">iperf3</span><span class="hl-2"> </span><span class="hl-4">-c</span><span class="hl-2"> &lt;</span><span class="hl-3">server-i</span><span class="hl-2">p&gt;  </span><span class="hl-0"># On client</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="latency-testing" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Latency Testing<a href="#latency-testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="bash"><span class="hl-0"># Test latency</span><br/><span class="hl-1">ping</span><span class="hl-2"> &lt;</span><span class="hl-3">server-i</span><span class="hl-2">p&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="packet-loss-testing" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Packet Loss Testing<a href="#packet-loss-testing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Use online tools like <a href="http://packetlosstest.com">packetlosstest.com</a> to test packet loss and jitter.</p>
+<a id="common-problems" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Common Problems<a href="#common-problems" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><a id="high-latency" class="tsd-anchor"></a><h4 class="tsd-anchor-link">High Latency<a href="#high-latency" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li><strong>Cause</strong>: Network congestion, poor WiFi signal, or server overload</li>
+<li><strong>Solutions</strong>:
+<ul>
+<li>Move closer to router</li>
+<li>Use 5GHz instead of 2.4GHz</li>
+<li>Close other bandwidth-intensive applications</li>
+<li>Check server performance</li>
+</ul>
+</li>
+</ul>
+<a id="packet-loss" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Packet Loss<a href="#packet-loss" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li><strong>Cause</strong>: WiFi interference, poor signal strength, or network congestion</li>
+<li><strong>Solutions</strong>:
+<ul>
+<li>Change WiFi channel</li>
+<li>Reduce distance from router</li>
+<li>Check for interference sources</li>
+<li>Use wired connection for server</li>
+</ul>
+</li>
+</ul>
+<a id="connection-drops" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Connection Drops<a href="#connection-drops" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li><strong>Cause</strong>: Network instability, server issues, or timeout</li>
+<li><strong>Solutions</strong>:
+<ul>
+<li>Check network stability</li>
+<li>Verify server is running</li>
+<li>Increase timeout values</li>
+<li>Implement reconnection logic</li>
+</ul>
+</li>
+</ul>
+<a id="security-considerations" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Security Considerations<a href="#security-considerations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="network-security" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Network Security<a href="#network-security" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Use WPA3 encryption for WiFi</li>
+<li>Enable network isolation if needed</li>
+<li>Use VPN for remote connections</li>
+<li>Regularly update router firmware</li>
+</ul>
+<a id="websocket-proxy-setup" class="tsd-anchor"></a><h2 class="tsd-anchor-link">WebSocket Proxy Setup<a href="#websocket-proxy-setup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>When using HTTPS for your web application (for development or production), you need a WebSocket proxy with TLS support to establish secure connections. We provide example configurations for two common deployment scenarios.</p>
+<a id="when-you-might-need-a-proxy" class="tsd-anchor"></a><h3 class="tsd-anchor-link">When You Might Need a Proxy<a href="#when-you-might-need-a-proxy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Consider using a WebSocket proxy when:</p>
+<ul>
+<li>Hosting your web application using HTTPS (<code>npm run dev-server:https</code>)</li>
+<li>Deploying to production environments with proper SSL certificates</li>
+<li>Accessing CloudXR from remote networks or the internet</li>
+</ul>
+<p>The proxy acts as a secure gateway, providing TLS termination for WebSocket connections between CloudXR.js clients and the CloudXR Runtime.</p>
+<a id="example-configurations" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Example Configurations<a href="#example-configurations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>We provide two example proxy configurations to help you get started:</p>
+<table>
+<thead>
+<tr>
+<th>Deployment Scenario</th>
+<th>Example Solution</th>
+<th>Setup Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local development with HTTP</td>
+<td>No proxy needed (direct <code>ws://</code> connection)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Development/testing with HTTPS</td>
+<td>Docker HAProxy example</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Single-server production</td>
+<td>Docker HAProxy example</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Kubernetes production</td>
+<td>nginx Ingress example</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Multi-server/enterprise</td>
+<td>nginx Ingress example</td>
+<td>Medium-High</td>
+</tr>
+</tbody>
+</table>
+<a id="example-1-development-proxy-docker--haproxy" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Example 1: Development Proxy (Docker + HAProxy)<a href="#example-1-development-proxy-docker--haproxy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>This example demonstrates a lightweight WebSocket proxy using HAProxy in a Docker container. It automatically generates self-signed SSL certificates and works well for development and single-server deployments. You can deploy this on either WSL2 in Windows OS or on Linux directly.</p>
+<a id="quick-start" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Quick Start<a href="#quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ol>
+<li>
+<p><strong>Build the proxy:</strong></p>
+<pre><code class="bash"><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">proxy</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">build</span><span class="hl-2"> </span><span class="hl-4">-t</span><span class="hl-2"> </span><span class="hl-3">cloudxr-wss-proxy</span><span class="hl-2"> </span><span class="hl-3">.</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Run the proxy:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-4">-d</span><span class="hl-2"> </span><span class="hl-4">--name</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">--network</span><span class="hl-2"> </span><span class="hl-3">host</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">BACKEND_HOST=localhost</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">BACKEND_PORT=</span><span class="hl-7">49100</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">PROXY_PORT=</span><span class="hl-7">48322</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-3">cloudxr-wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ol>
+<p>The proxy will automatically:</p>
+<ul>
+<li>Generate self-signed SSL certificates</li>
+<li>Connect to CloudXR Runtime on <code>localhost:49100</code></li>
+<li>Listen on port <code>48322</code> for WSS connections</li>
+</ul>
+<ol start="3">
+<li>
+<p><strong>View logs:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">logs</span><span class="hl-2"> </span><span class="hl-4">-f</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ol>
+<a id="configuration-options" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Configuration Options<a href="#configuration-options" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Customize the proxy using environment variables via <code>-e</code> flags:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BACKEND_HOST</code></td>
+<td><code>localhost</code></td>
+<td>CloudXR Runtime hostname or IP address</td>
+</tr>
+<tr>
+<td><code>BACKEND_PORT</code></td>
+<td><code>49100</code></td>
+<td>CloudXR Runtime WebSocket port</td>
+</tr>
+<tr>
+<td><code>PROXY_PORT</code></td>
+<td><code>48322</code></td>
+<td>SSL proxy listening port</td>
+</tr>
+<tr>
+<td><code>HEALTH_CHECK_INTERVAL</code></td>
+<td><code>2s</code></td>
+<td>Time between backend health checks</td>
+</tr>
+<tr>
+<td><code>HEALTH_CHECK_RISE</code></td>
+<td><code>2</code></td>
+<td>Consecutive successful checks to mark backend UP</td>
+</tr>
+<tr>
+<td><code>HEALTH_CHECK_FALL</code></td>
+<td><code>3</code></td>
+<td>Consecutive failed checks to mark backend DOWN</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example with custom backend:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-4">-d</span><span class="hl-2"> </span><span class="hl-4">--name</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">--network</span><span class="hl-2"> </span><span class="hl-3">host</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">BACKEND_HOST=</span><span class="hl-7">192.168.1.100</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">BACKEND_PORT=</span><span class="hl-7">49100</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">PROXY_PORT=</span><span class="hl-7">48322</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-3">cloudxr-wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="using-custom-certificates" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Using Custom Certificates<a href="#using-custom-certificates" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>If you have your own SSL certificate, you can use it instead of the auto-generated self-signed certificate:</p>
+<ol>
+<li>
+<p><strong>Prepare certificate:</strong></p>
+<p>Combine your certificate and private key into a single PEM file:</p>
+<pre><code class="bash"><span class="hl-1">cat</span><span class="hl-2"> </span><span class="hl-3">your-cert.crt</span><span class="hl-2"> </span><span class="hl-3">your-key.key</span><span class="hl-2"> &gt; </span><span class="hl-3">server.pem</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Mount certificate into container:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-4">-d</span><span class="hl-2"> </span><span class="hl-4">--name</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">--network</span><span class="hl-2"> </span><span class="hl-3">host</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-v</span><span class="hl-2"> </span><span class="hl-3">/path/to/server.pem:/usr/local/etc/haproxy/certs/server.pem:ro</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">BACKEND_HOST=localhost</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">BACKEND_PORT=</span><span class="hl-7">49100</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">-e</span><span class="hl-2"> </span><span class="hl-3">PROXY_PORT=</span><span class="hl-7">48322</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-3">cloudxr-wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ol>
+<a id="health-check-behavior" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Health Check Behavior<a href="#health-check-behavior" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>The proxy continuously monitors the CloudXR Runtime backend:</p>
+<ul>
+<li>
+<p><strong>Backend DOWN</strong>: Logs show <code>Server websocket_backend/local_websocket is DOWN</code></p>
+<ul>
+<li>Expected during CloudXR Runtime startup</li>
+<li>Proxy automatically reconnects when runtime becomes available</li>
+</ul>
+</li>
+<li>
+<p><strong>Backend UP</strong>: Logs show <code>Server websocket_backend/local_websocket is UP</code></p>
+<ul>
+<li>Proxy is ready to accept client connections</li>
+<li>WebSocket connections are forwarded to the runtime</li>
+</ul>
+</li>
+</ul>
+<a id="managing-the-proxy" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Managing the Proxy<a href="#managing-the-proxy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><strong>Stop the proxy:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">stop</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Start a stopped proxy:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">start</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Delete the proxy container:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">stop</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">rm</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Regenerate certificates:</strong></p>
+<pre><code class="bash"><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">stop</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">rm</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">volume</span><span class="hl-2"> </span><span class="hl-3">rm</span><span class="hl-2"> </span><span class="hl-3">cloudxr-proxy-certs</span><br/><span class="hl-0"># Then run the proxy again</span>
+</code><button type="button">Copy</button></pre>
+
+<blockquote>
+<p><strong>Important</strong>: To persist certificates across container restarts, use a Docker volume with <code>-v cloudxr-proxy-certs:/usr/local/etc/haproxy/certs</code>. The same certificate will be reused, so you only need to trust it once in your browser. If you mount your own certificate (see <a href="#using-custom-certificates">Using Custom Certificates</a>), it persists across all restarts.</p>
+</blockquote>
+<a id="example-usage" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Example Usage<a href="#example-usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><strong>Complete workflow:</strong></p>
+<ol>
+<li>
+<p><strong>Start the proxy:</strong></p>
+<pre><code class="bash"><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">proxy</span><br/><span class="hl-1">docker</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-4">-d</span><span class="hl-2"> </span><span class="hl-4">--name</span><span class="hl-2"> </span><span class="hl-3">wss-proxy</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-4">--network</span><span class="hl-2"> </span><span class="hl-3">host</span><span class="hl-2"> </span><span class="hl-10">\</span><br/><span class="hl-2">  </span><span class="hl-3">cloudxr-wss-proxy</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Run an example (in a new terminal):</strong></p>
+<pre><code class="bash"><span class="hl-1">cd</span><span class="hl-2"> </span><span class="hl-3">simple</span><br/><span class="hl-1">npm</span><span class="hl-2"> </span><span class="hl-3">run</span><span class="hl-2"> </span><span class="hl-3">dev-server:https</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p><strong>Access from your XR headset browser:</strong></p>
+<ul>
+<li>Navigate to <code>https://&lt;server-ip&gt;:8080/</code></li>
+<li>Trust the certificate (see <a href="Client_Setup.html#trust-ssl-certificates-https-mode">Client Setup Guide</a>)</li>
+<li>Connect to <code>wss://&lt;server-ip&gt;:48322</code></li>
+</ul>
+</li>
+</ol>
+<a id="common-issues" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Common Issues<a href="#common-issues" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><strong>&quot;Connection Refused&quot; errors during startup:</strong></p>
+<ul>
+<li>This is expected behavior during CloudXR Runtime initialization</li>
+<li>The proxy will automatically connect when the runtime becomes ready</li>
+<li>Monitor the logs to see when connection is established: <code>docker logs -f wss-proxy</code></li>
+</ul>
+<p><strong>Certificate trust issues:</strong></p>
+<ul>
+<li>Ensure your client browser has trusted the self-signed certificate</li>
+<li>Follow the <a href="Client_Setup.html#trust-ssl-certificates-https-mode">Client Setup Guide</a></li>
+<li>For production deployments, consider using properly signed certificates</li>
+</ul>
+<p><strong>Firewall blocking connections:</strong></p>
+<ul>
+<li>Verify that port 48322 (or your configured <code>PROXY_PORT</code>) is open:<pre><code class="bash"><span class="hl-0"># Ubuntu/Debian example</span><br/><span class="hl-1">sudo</span><span class="hl-2"> </span><span class="hl-3">ufw</span><span class="hl-2"> </span><span class="hl-3">allow</span><span class="hl-2"> </span><span class="hl-3">48322/tcp</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ul>
+<a id="example-2-production-proxy-kubernetes--nginx" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Example 2: Production Proxy (Kubernetes + nginx)<a href="#example-2-production-proxy-kubernetes--nginx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>This example demonstrates an enterprise-grade solution using nginx Ingress Controller on Kubernetes. This configuration supports multiple CloudXR servers, load balancing, and integration with existing Kubernetes infrastructure.</p>
+<a id="prerequisites" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Prerequisites<a href="#prerequisites" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>This example assumes you have:</p>
+<ul>
+<li>Kubernetes cluster with kubectl access</li>
+<li>nginx Ingress Controller installed</li>
+<li>Valid TLS certificate and key (<code>tls.crt</code> and <code>tls.key</code>)</li>
+<li>Familiarity with Kubernetes resource management</li>
+</ul>
+<a id="1-create-tls-secret" class="tsd-anchor"></a><h4 class="tsd-anchor-link">1. Create TLS Secret<a href="#1-create-tls-secret" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="bash"><span class="hl-1">kubectl</span><span class="hl-2"> </span><span class="hl-3">create</span><span class="hl-2"> </span><span class="hl-3">secret</span><span class="hl-2"> </span><span class="hl-3">tls</span><span class="hl-2"> </span><span class="hl-3">my-tls</span><span class="hl-2"> </span><span class="hl-4">--cert=tls.crt</span><span class="hl-2"> </span><span class="hl-4">--key=tls.key</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="2-deploy-nginx-proxy" class="tsd-anchor"></a><h4 class="tsd-anchor-link">2. Deploy nginx Proxy<a href="#2-deploy-nginx-proxy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>The nginx proxy configuration example below handles WebSocket connections by
+routing <code>/{IP}:{PORT}/{path}</code> to target CloudXR servers.</p>
+<p><strong>ConfigMap:</strong></p>
+<pre><code class="yaml"><span class="hl-11">apiVersion</span><span class="hl-2">: </span><span class="hl-12">v1</span><br/><span class="hl-11">kind</span><span class="hl-2">: </span><span class="hl-12">ConfigMap</span><br/><span class="hl-2">...</span><br/><span class="hl-11">data</span><span class="hl-2">:</span><br/><span class="hl-2">  </span><span class="hl-11">nginx.conf</span><span class="hl-2">: </span><span class="hl-9">|</span><br/><span class="hl-12">    ...</span><br/><span class="hl-12">    http {</span><br/><span class="hl-12">        ...</span><br/><span class="hl-12">        server {</span><br/><span class="hl-12">            ...</span><br/><span class="hl-12">            location = /test {</span><br/><span class="hl-12">                return 200 &#39;WebSocket proxy ready\n&#39;;</span><br/><span class="hl-12">            }</span><br/><span class="hl-12">            location ~ ^/([0-9.]+)(?::[0-9]+)?(.*)$ {</span><br/><span class="hl-12">                set $target_ip $1;</span><br/><span class="hl-12">                set $target_port 49100;</span><br/><span class="hl-12">                set $request_path $2;</span><br/><span class="hl-12">                proxy_set_header Upgrade $http_upgrade;</span><br/><span class="hl-12">                proxy_set_header Connection &quot;upgrade&quot;;</span><br/><span class="hl-12">                proxy_http_version 1.1;</span><br/><span class="hl-12">                proxy_pass http://$target_ip:$target_port$request_path;</span><br/><span class="hl-12">            }</span><br/><span class="hl-12">        }</span><br/><span class="hl-12">    }</span><br/><span class="hl-12">    ...</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="3-configure-ingress" class="tsd-anchor"></a><h4 class="tsd-anchor-link">3. Configure Ingress<a href="#3-configure-ingress" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>The Ingress resource exposes the proxy service externally with:</p>
+<ul>
+<li><strong>TLS Termination</strong>: Handles HTTPS encryption/decryption</li>
+<li><strong>WebSocket Support</strong>: Special annotations for WebSocket protocol handling</li>
+<li><strong>Path Routing</strong>: Routes <code>/*</code> requests to the nginx proxy service</li>
+<li><strong>SSL Redirect</strong>: Automatically redirects HTTP to HTTPS</li>
+</ul>
+<pre><code class="yaml"><span class="hl-11">apiVersion</span><span class="hl-2">: </span><span class="hl-12">networking.k8s.io/v1</span><br/><span class="hl-11">kind</span><span class="hl-2">: </span><span class="hl-12">Ingress</span><br/><span class="hl-11">metadata</span><span class="hl-2">:</span><br/><span class="hl-2">  </span><span class="hl-11">annotations</span><span class="hl-2">:</span><br/><span class="hl-2">    </span><span class="hl-11">nginx.ingress.kubernetes.io/ssl-redirect</span><span class="hl-2">: </span><span class="hl-3">&quot;true&quot;</span><br/><span class="hl-2">    </span><span class="hl-11">nginx.ingress.kubernetes.io/websocket-services</span><span class="hl-2">: </span><span class="hl-3">&quot;...&quot;</span><br/><span class="hl-2">  </span><span class="hl-7">...</span><br/><span class="hl-11">spec</span><span class="hl-2">:</span><br/><span class="hl-2">  </span><span class="hl-11">rules</span><span class="hl-2">:</span><br/><span class="hl-2">  - </span><span class="hl-11">host</span><span class="hl-2">: </span><span class="hl-12">&lt;https-proxy&gt;</span><br/><span class="hl-2">    </span><span class="hl-11">http</span><span class="hl-2">:</span><br/><span class="hl-2">      </span><span class="hl-11">paths</span><span class="hl-2">:</span><br/><span class="hl-2">      - </span><span class="hl-11">backend</span><span class="hl-2">:</span><br/><span class="hl-2">          </span><span class="hl-11">service</span><span class="hl-2">:</span><br/><span class="hl-2">            </span><span class="hl-11">name</span><span class="hl-2">: </span><span class="hl-12">&lt;nginx-service&gt;</span><br/><span class="hl-2">            </span><span class="hl-11">port</span><span class="hl-2">:</span><br/><span class="hl-2">              </span><span class="hl-11">number</span><span class="hl-2">: </span><span class="hl-12">&lt;nginx-port&gt;</span><br/><span class="hl-2">        </span><span class="hl-11">path</span><span class="hl-2">: </span><span class="hl-12">/</span><br/><span class="hl-2">        </span><span class="hl-11">pathType</span><span class="hl-2">: </span><span class="hl-12">Prefix</span><br/><span class="hl-2">  </span><span class="hl-11">tls</span><span class="hl-2">:</span><br/><span class="hl-2">  - </span><span class="hl-11">hosts</span><span class="hl-2">:</span><br/><span class="hl-2">    - </span><span class="hl-12">&lt;https-proxy&gt;</span><br/><span class="hl-2">    </span><span class="hl-11">secretName</span><span class="hl-2">: </span><span class="hl-12">my-tls</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Once deployed, you can test via</p>
+<pre><code class="bash"><span class="hl-1">curl</span><span class="hl-2"> </span><span class="hl-4">-k</span><span class="hl-2"> </span><span class="hl-3">https://</span><span class="hl-2">&lt;</span><span class="hl-3">https-prox</span><span class="hl-2">y&gt;</span><span class="hl-3">/test</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="4-usage" class="tsd-anchor"></a><h4 class="tsd-anchor-link">4. Usage<a href="#4-usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Refer to the <a href="Getting_Started.html">Getting Started Guide</a> and checkout the examples
+we provide to see how the proxy is used.
+You could run the example web server on HTTPS and then fill in the proxy URL.</p>
+<p>The secure WebSocket connection format in the console log will become:</p>
+<pre><code><span class="hl-8">wss</span><span class="hl-2">:</span><span class="hl-0">//{https-proxy}/{cloudxr-server-ip}:{port}/{optional-path}</span>
+</code><button>Copy</button></pre>
+
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#networking-setup"><span>Networking <wbr/>Setup</span></a><ul><li><a href="#connection-architecture"><span>Connection <wbr/>Architecture</span></a></li><li><ul><li><a href="#1-client-web-server"><span>1. <wbr/>Client <wbr/>Web <wbr/>Server</span></a></li><li><a href="#2-cloudxr-runtime-connection"><span>2. <wbr/>CloudXR <wbr/>Runtime <wbr/>Connection</span></a></li></ul></li><li><a href="#network-requirements"><span>Network <wbr/>Requirements</span></a></li><li><ul><li><a href="#bandwidth-requirements"><span>Bandwidth <wbr/>Requirements</span></a></li><li><a href="#network-topology"><span>Network <wbr/>Topology</span></a></li></ul></li><li><a href="#wifi-configuration"><span>Wi<wbr/>Fi <wbr/>Configuration</span></a></li><li><ul><li><a href="#recommended-settings"><span>Recommended <wbr/>Settings</span></a></li><li><a href="#router-configuration"><span>Router <wbr/>Configuration</span></a></li></ul></li><li><a href="#firewall-configuration"><span>Firewall <wbr/>Configuration</span></a></li><li><ul><li><a href="#for-windows"><span>For <wbr/>Windows</span></a></li><li><a href="#for-ubuntu-linux"><span>For <wbr/>Ubuntu <wbr/>Linux</span></a></li></ul></li><li><a href="#troubleshooting-network-issues"><span>Troubleshooting <wbr/>Network <wbr/>Issues</span></a></li><li><ul><li><a href="#external-tools"><span>External <wbr/>Tools</span></a></li><li><ul><li><a href="#bandwidth-testing"><span>Bandwidth <wbr/>Testing</span></a></li><li><a href="#latency-testing"><span>Latency <wbr/>Testing</span></a></li><li><a href="#packet-loss-testing"><span>Packet <wbr/>Loss <wbr/>Testing</span></a></li></ul></li><li><a href="#common-problems"><span>Common <wbr/>Problems</span></a></li><li><ul><li><a href="#high-latency"><span>High <wbr/>Latency</span></a></li><li><a href="#packet-loss"><span>Packet <wbr/>Loss</span></a></li><li><a href="#connection-drops"><span>Connection <wbr/>Drops</span></a></li></ul></li></ul></li><li><a href="#security-considerations"><span>Security <wbr/>Considerations</span></a></li><li><ul><li><a href="#network-security"><span>Network <wbr/>Security</span></a></li></ul></li><li><a href="#websocket-proxy-setup"><span>Web<wbr/>Socket <wbr/>Proxy <wbr/>Setup</span></a></li><li><ul><li><a href="#when-you-might-need-a-proxy"><span>When <wbr/>You <wbr/>Might <wbr/>Need a <wbr/>Proxy</span></a></li><li><a href="#example-configurations"><span>Example <wbr/>Configurations</span></a></li><li><a href="#example-1-development-proxy-docker--haproxy"><span>Example 1: <wbr/>Development <wbr/>Proxy (<wbr/>Docker + HAProxy)</span></a></li><li><ul><li><a href="#quick-start"><span>Quick <wbr/>Start</span></a></li><li><a href="#configuration-options"><span>Configuration <wbr/>Options</span></a></li><li><a href="#using-custom-certificates"><span>Using <wbr/>Custom <wbr/>Certificates</span></a></li><li><a href="#health-check-behavior"><span>Health <wbr/>Check <wbr/>Behavior</span></a></li><li><a href="#managing-the-proxy"><span>Managing the <wbr/>Proxy</span></a></li><li><a href="#example-usage"><span>Example <wbr/>Usage</span></a></li><li><a href="#common-issues"><span>Common <wbr/>Issues</span></a></li></ul></li><li><a href="#example-2-production-proxy-kubernetes--nginx"><span>Example 2: <wbr/>Production <wbr/>Proxy (<wbr/>Kubernetes + nginx)</span></a></li><li><ul><li><a href="#prerequisites"><span>Prerequisites</span></a></li><li><a href="#1-create-tls-secret"><span>1. <wbr/>Create TLS <wbr/>Secret</span></a></li><li><a href="#2-deploy-nginx-proxy"><span>2. <wbr/>Deploy nginx <wbr/>Proxy</span></a></li><li><a href="#3-configure-ingress"><span>3. <wbr/>Configure <wbr/>Ingress</span></a></li><li><a href="#4-usage"><span>4. <wbr/>Usage</span></a></li></ul></li></ul></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">CloudXR.js SDK Documentation - v6.0.1-beta</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

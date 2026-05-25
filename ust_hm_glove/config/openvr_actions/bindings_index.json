@@ -1,0 +1,113 @@
+{
+  "_comment": [
+    "Default binding for the UDCAP VR Glove, which emulates a Valve Index",
+    "controller (``controller_type = knuckles``) at the SteamVR layer.",
+    "",
+    "Three separate groups of sources are bound here:",
+    "  1. Skeleton actions -> /user/hand/{l,r}/input/skeleton/{left,right}.",
+    "     Not guaranteed to work: most knuckles-emulator drivers don't",
+    "     actually implement CreateSkeletonComponent.  The binding still",
+    "     needs to be present so the action exists, but skeleton data may",
+    "     stay inactive (``bActive == False``).  In that case the retargeter",
+    "     falls through to the finger-curl actions below.",
+    "",
+    "  2. Trigger + grip as vector1 (mode: trigger with ``pull`` input).",
+    "     Used by GR1T2FourierUDCAPDevice to bypass the sampler's legacy",
+    "     ``getControllerState()`` path, which returns zeros for most",
+    "     knuckles emulators.  Also feeds the button-grip fallback.",
+    "",
+    "  3. Per-finger curl (10 vector1 actions) bound as TRIGGER at",
+    "     /user/hand/{l,r}/input/finger/{thumb,index,middle,ring,pinky}.",
+    "     CRITICAL: the per-finger inputs on both the Valve Index profile",
+    "     (index_controller_profile.json) and the UDCAP profile",
+    "     (UDCAP_profile.json) declare ``type: \"trigger\"`` for these",
+    "     paths.  Using ``mode: force_sensor`` triggers SteamVR to log",
+    "     ``Invalid input type force for controller (/user/hand/.../finger/...)``",
+    "     and silently drop ALL ten finger bindings.  The correct mode is",
+    "     ``trigger`` with ``pull`` as the input key — same shape as the",
+    "     main trigger binding above."
+  ],
+  "bindings": {
+    "/actions/teleop": {
+      "skeleton": [
+        {
+          "output": "/actions/teleop/in/skeleton_left",
+          "path":   "/user/hand/left/input/skeleton/left"
+        },
+        {
+          "output": "/actions/teleop/in/skeleton_right",
+          "path":   "/user/hand/right/input/skeleton/right"
+        }
+      ],
+      "sources": [
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/trigger_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/trigger"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/trigger_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/grip_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/grip"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/grip_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/grip"
+        },
+
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_index_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/index"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_middle_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/middle"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_ring_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/ring"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_pinky_left"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/left/input/finger/pinky"
+        },
+
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_index_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/index"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_middle_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/middle"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_ring_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/ring"
+        },
+        {
+          "inputs": {"pull": {"output": "/actions/teleop/in/finger_pinky_right"}},
+          "mode":   "trigger",
+          "path":   "/user/hand/right/input/finger/pinky"
+        }
+      ]
+    }
+  },
+  "controller_type": "knuckles",
+  "description": "UDCAP (Index-profile) default binding: skeleton + trigger/grip + 10 per-finger curl",
+  "name": "UST Teleop — Index profile + per-finger curl",
+  "options": {},
+  "simulated_actions": []
+}

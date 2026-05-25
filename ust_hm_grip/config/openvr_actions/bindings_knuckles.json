@@ -1,0 +1,93 @@
+{
+  "_comment": [
+    "Per-controller_type binding (9.42).  controller_type = 'knuckles'.",
+    "",
+    "All six controller_type variants share identical sources/poses but",
+    "differ in this top-level controller_type metadata.  SteamVR's binding",
+    "loader validates the file's controller_type against the default_bindings",
+    "lookup key, so a single shared binding file (pre-9.42 bindings_pico.json,",
+    "controller_type=pico_neo3_controller) was silently rejected for the",
+    "other five controller_type values that mapped to it.",
+    "",
+    "If you copy this file to %LOCALAPPDATA%\\openvr\\input\\ as a Personal",
+    "Binding, rename to binding_ust.teleop.gr1t2_gripper_<controller_type>.json."
+  ],
+  "alias_info": {},
+  "bindings": {
+    "/actions/teleop": {
+      "sources": [
+        {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/trigger_left"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trigger",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/trigger_right"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/grip",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/grip_left"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/grip",
+          "mode": "trigger",
+          "inputs": {
+            "pull": {
+              "output": "/actions/teleop/in/grip_right"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/application_menu",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/teleop/in/menu_left"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/application_menu",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/teleop/in/menu_right"
+            }
+          }
+        }
+      ],
+      "haptics": [],
+      "skeleton": [],
+      "poses": [
+        {
+          "output": "/actions/teleop/in/pose_left",
+          "path": "/user/hand/left/pose/raw"
+        },
+        {
+          "output": "/actions/teleop/in/pose_right",
+          "path": "/user/hand/right/pose/raw"
+        }
+      ]
+    }
+  },
+  "controller_type": "knuckles",
+  "description": "GR1T2 + 2-finger gripper teleop binding for knuckles (Valve Index).  9.42: split per controller_type so SteamVR's file-level controller_type validation accepts the binding.  Sources/poses are identical across all six variants -- only the top-level controller_type metadata differs.",
+  "name": "UST Teleop GR1T2 Gripper -- knuckles",
+  "options": {},
+  "simulated_actions": []
+}

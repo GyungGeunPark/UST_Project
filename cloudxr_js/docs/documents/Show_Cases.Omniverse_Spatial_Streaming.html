@@ -1,0 +1,116 @@
+<!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Omniverse Spatial Streaming | CloudXR.js SDK Documentation - v6.0.1-beta</title><meta name="description" content="Documentation for CloudXR.js SDK Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">CloudXR.js SDK Documentation - v6.0.1-beta</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">CloudXR.js SDK Documentation</a></li><li><a href="Show_Cases.html">Show Cases</a></li><li><a href="Show_Cases.Omniverse_Spatial_Streaming.html">Omniverse Spatial Streaming</a></li></ul></div><div class="tsd-panel tsd-typography"><a id="omniverse-spatial-streaming-for-the-meta-headset" class="tsd-anchor"></a><h1 class="tsd-anchor-link">Omniverse Spatial Streaming for the Meta Headset<a href="#omniverse-spatial-streaming-for-the-meta-headset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1><p>NVIDIA Omniverse Spatial Streaming is an architectural framework enabling the network-based transmission of high-fidelity USD (Universal Scene Description) digital twin representations to extended reality (XR) endpoints, such as the Meta headset. This framework facilitates the development of interactive workflows by integrating the Omniverse platform with the CloudXR.js SDK, specifically designed to support real-time, immersive XR rendering, precise spatial acuity, and direct hand tracking for 3D content manipulation within the streamed environment.</p>
+<p>It provides a robust solution for immersive digital twin experiences, enabling high visual fidelity and interactive responsiveness. This technology optimizes development through low-latency, GPU-accelerated streaming of 3D asset data, which is critical for applications requiring millisecond-level motion-to-photon latency, accurate spatial awareness, and precise hand-tracking. This allows developers to engineer seamless, performant, and engaging interactive workflows. Practical applications include architecture and construction, where architects can create detailed digital twins for immersive client walkthroughs, and industrial training, offering realistic simulations for enhanced learning and safety.</p>
+<a id="streaming-pipeline-overview" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Streaming Pipeline Overview<a href="#streaming-pipeline-overview" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p><img src="../media/ov-pipeline-overview.png" alt="Pipeline Overview"></p>
+<p>In these workflows, a Meta Quest 3 headset captures operator head and hand motion through the browser's immersive web capabilities. The browser sends this data to Omniverse Kit, which renders and submits stereo views of the USD scene to the streaming pipeline. Omniverse then encodes and streams the rendered views back to the Meta headset for display in real time using a low-latency, GPU-accelerated pipeline.</p>
+<a id="prerequisites" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Prerequisites<a href="#prerequisites" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Before diving into this guide, developers should have a basic understanding of the following:</p>
+<ul>
+<li><strong>Omniverse Kit:</strong> Familiarity with the Omniverse Kit environment and its configuration.</li>
+<li><strong>Web Frameworks:</strong> Basic knowledge of web frameworks like immersive web (WebXR), WebGL, etc. and how to build a web application.</li>
+<li><strong>CloudXR.js SDK:</strong> Understanding of the CloudXR.js SDK and its role in enabling immersive XR rendering.</li>
+</ul>
+<a id="requirements" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Requirements<a href="#requirements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Prior to using Omniverse Spatial Streaming with Meta headset, please review the following system requirements:</p>
+<a id="🥽-headset" class="tsd-anchor"></a><h3 class="tsd-anchor-link">🥽 Headset<a href="#🥽-headset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Meta Quest 3</p>
+<a id="🖥️-omniverse-workstation" class="tsd-anchor"></a><h3 class="tsd-anchor-link">🖥️ Omniverse Workstation<a href="#🖥️-omniverse-workstation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>Omniverse runs on Windows and Linux-based PCs and requires an NVIDIA GPU to run. We recommend Windows 11 or Ubuntu 24.04 for developing and authoring your Meta Quest 3 experiences.</p>
+<p><strong>Minimum System Requirements:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>AMD Ryzen 16C/32T Threadripper Pro 5955WX 16-Cores (Zen3)</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>1x NVIDIA RTX Pro 6000 Blackwell or equivalent (3x encoder w/ AV1 for Meta Quest 3 streaming)</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>128 GB DDR4 Dual Rank (preferred: 8 x 16 GB, also compatible with 4 x 32 GB)</td>
+</tr>
+<tr>
+<td>Boot Disk</td>
+<td>1-2 TB M.2 NVMe</td>
+</tr>
+<tr>
+<td>Network Interface Card</td>
+<td>Any NIC supporting 1000 Mbps speeds</td>
+</tr>
+<tr>
+<td>Router</td>
+<td>WiFi 6 capable (see <a href="Networking_Setup.html">Networking Setup</a>)</td>
+</tr>
+<tr>
+<td>UDP Ports (Firewall Rules)</td>
+<td>47998, 47999, 48000, 48005, 48008, 48012 (see <a href="Networking_Setup.html">Networking Setup</a>)</td>
+</tr>
+<tr>
+<td>TCP Ports (Firewall Rules)</td>
+<td>49100 (see <a href="Networking_Setup.html">Networking Setup</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>The following software is required:</p>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workstation OS</td>
+<td>Windows 10 / Windows 11 / Ubuntu 22.04 / Ubuntu 24.04</td>
+</tr>
+<tr>
+<td>Omniverse Kit SDK</td>
+<td>109.0.2 or newer (includes integrated CloudXR 6 WebRTC runtime)</td>
+</tr>
+<tr>
+<td>NVIDIA Driver</td>
+<td>See <a href="https://docs.omniverse.nvidia.com/materials-and-rendering/latest/common/technical-requirements.html">this guide</a> for driver requirements</td>
+</tr>
+<tr>
+<td>VS Code or similar IDE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<a id="🌐-web-application-for-meta-quest-3" class="tsd-anchor"></a><h3 class="tsd-anchor-link">🌐 Web Application for Meta Quest 3<a href="#🌐-web-application-for-meta-quest-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><p>For developing a web application for Meta Quest 3, we recommend you to use the same Omniverse workstation with the following software.</p>
+<table>
+<thead>
+<tr>
+<th>Software</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta Quest 3 OS</td>
+<td>79 or later</td>
+</tr>
+<tr>
+<td>Chromium-based browser (e.g. Google Chrome)</td>
+<td><a href="https://chromiumdash.appspot.com/branches">M125</a> or newer</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td><a href="https://nodejs.org/en/download">v20.19.5</a> or newer</td>
+</tr>
+<tr>
+<td>VS Code or similar IDE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<a id="next" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Next<a href="#next" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2><ol>
+<li><a href="Show_Cases.Omniverse_Spatial_Streaming.Setup_Omniverse_Kit_SDK.html">Omniverse Kit Setup for Streaming to Meta Headsets</a></li>
+<li><a href="Show_Cases.Omniverse_Spatial_Streaming.Running_Generic_Client.html">Running Generic Client on Meta Quest 3</a></li>
+</ol>
+<p>If you encounter issues, please see <a href="Show_Cases.Omniverse_Spatial_Streaming.Omniverse_Spatial_Streaming_Troubleshooting.html">Troubleshooting</a>.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#omniverse-spatial-streaming-for-the-meta-headset"><span>Omniverse <wbr/>Spatial <wbr/>Streaming for the <wbr/>Meta <wbr/>Headset</span></a><ul><li><a href="#streaming-pipeline-overview"><span>Streaming <wbr/>Pipeline <wbr/>Overview</span></a></li><li><a href="#prerequisites"><span>Prerequisites</span></a></li><li><a href="#requirements"><span>Requirements</span></a></li><li><ul><li><a href="#🥽-headset"><span>🥽 <wbr/>Headset</span></a></li><li><a href="#🖥️-omniverse-workstation"><span>🖥️ <wbr/>Omniverse <wbr/>Workstation</span></a></li><li><a href="#🌐-web-application-for-meta-quest-3"><span>🌐 <wbr/>Web <wbr/>Application for <wbr/>Meta <wbr/>Quest 3</span></a></li></ul></li><li><a href="#next"><span>Next</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">CloudXR.js SDK Documentation - v6.0.1-beta</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

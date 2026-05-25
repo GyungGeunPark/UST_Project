@@ -1,0 +1,52 @@
+[Step 1] CloudXR Runtime 시작 (--network host)
+[Step 2] Isaac Lab 시작 (--enable_pinocchio)  ← Runtime과 IPC 연결
+[Step 3] WSS 프록시 시작 (BACKEND_PORT=48010)
+[Step 4] Quest에서 연결
+호스트에서 다음 순서로 실행하세요:
+
+
+# === Step 1: CloudXR Runtime 재시작 (별도 터미널) ===
+cd ~/ust_ws
+docker run -it --rm \
+    --name ust-cloudxr-runtime \
+    --privileged \
+    --network host \
+    --gpus=all \
+    -e "ACCEPT_EULA=Y" \
+    --mount "type=bind,src=/home/jyp/ust_ws/openxr,dst=/openxr" \
+    nvcr.io/nvidia/cloudxr-runtime-early-access:6.0.1-webrtc
+
+
+# === Step 2: Isaac Lab 시작 (Isaac Lab 컨테이너에서) ===
+python ust_ws/ust_260220/scripts/record_demos.py \
+    --teleop_device handtracking \
+    --num_demos 50 \
+    --output_dir ust_ws/ust_260220/data/demos/
+
+# === Step 3: Isaac Lab이 완전히 로드된 후, 49100 리스닝 확인 ===
+ss -tlnp | grep 49100
+# 49100이 리스닝 중이면 계속
+
+# === Step 4: WSS 프록시 시작 (BACKEND_PORT=49100, 127.0.0.1) ===
+docker stop wss-proxy 2>/dev/null; docker rm wss-proxy 2>/dev/null
+
+docker run -d --name wss-proxy \
+    --network host \
+    -e BACKEND_HOST=127.0.0.1 \
+    -e BACKEND_PORT=49100 \
+    -e PROXY_PORT=48322 \
+    cloudxr-wss-proxy
+
+# === Step 5: 확인 ===
+sleep 5 && docker logs wss-proxy 2>&1 | tail -10
+curl -k https://localhost:48322/ 2>&1 | head -5
+# "501 Not Implemented" 가 나오면 성공!
+
+# CloudXR.js 웹 서버 시작
+cd ~/ust_ws/cloudxr_js/isaac # 또는 해당 예제 디렉토리
+npm run dev-server:https
+
+# === Step 6: Quest 3S 브라우저에서 접속 ===
+# 1) https://192.168.0.117:48322/ → 인증서 수락 (502/501 페이지 OK)
+# 2) https://192.168.0.117:8080/ → CloudXR.js 웹 앱 로드
+# 3) 서버 IP: 192.168.0.117, 포트: 48322 입력 후 Connect

@@ -1,0 +1,31 @@
+# LLM Configuration for Isaac Sim LLM Robot Control
+
+provider: "openai"  # "openai" or "anthropic"
+
+openai:
+  api_key: "${OPENAI_API_KEY}"
+  model: "gpt-4o"
+  temperature: 0.1
+  max_tokens: 1024
+  timeout: 30.0
+
+anthropic:
+  api_key: "${ANTHROPIC_API_KEY}"
+  model: "claude-sonnet-4-20250514"
+  temperature: 0.1
+  max_tokens: 1024
+
+rate_limit:
+  min_interval: 0.1  # seconds between API calls
+  max_retries: 3
+  retry_delay: 1.0  # seconds
+
+cache:
+  enabled: true
+  max_size: 100
+  ttl: 3600.0  # 1 hour TTL
+  similarity_threshold: 0.95
+
+system_prompt:
+  include_safety_instructions: true
+  include_workspace_info: true

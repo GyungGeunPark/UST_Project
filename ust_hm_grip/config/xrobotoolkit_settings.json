@@ -1,0 +1,32 @@
+{
+  "service": {
+    "process_name": "RoboticsServiceProcess.exe",
+    "install_path": "C:/develop/IsaacLab/ust_ws/XRoboToolkit-PC-Service.win",
+    "service_bat": "runService.bat",
+    "setting_ini_path": "setting.ini",
+    "candidate_ports": [60061, 50051, 12345, 23306]
+  },
+  "sampler": {
+    "rate_hz": 120.0,
+    "enable_body": false,
+    "enable_hand": false,
+    "body_role_map": {
+      "0": "waist",
+      "7": "left_ankle",
+      "8": "right_ankle",
+      "18": "left_forearm",
+      "19": "right_forearm"
+    }
+  },
+  "coexistence": {
+    "pico_connect_warn": true,
+    "auto_kill_pico_connect": false
+  },
+  "_comments": {
+    "install_path": "User PC has the pre-built .win distribution unpacked under ust_ws/XRoboToolkit-PC-Service.win.",
+    "rate_hz": "Sampler poll rate. 90Hz matches PICO native; 120Hz oversample.",
+    "enable_body": "Phase C -- set true when PICO Motion Trackers are paired.",
+    "body_role_map": "PICO 24-joint body index -> ust_hm_grip tracker role.",
+    "candidate_ports": "Diagnostic L2 probe ports. 60061 is the default per setting.ini in v1.0.0."
+  }
+}

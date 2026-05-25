@@ -1,0 +1,6 @@
+# Auto-generated at runtime by GR1T2FourierUDCAPDevice._generate_runtime_manifest.
+# Contains the absolute path to the active conda env's python.exe so SteamVR
+# accepts the application entry (the static template ships with a placeholder
+# binary_path that SteamVR resolves to <config>/python.exe and silently
+# rejects).  Regenerated every launch — safe to delete.
+manifest.runtime.vrmanifest

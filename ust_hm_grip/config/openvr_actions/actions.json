@@ -1,0 +1,123 @@
+{
+  "_comment": [
+    "OpenVR action manifest for GR1T2 + 2-finger gripper teleop.",
+    "",
+    "9.42: default_bindings now maps each controller_type to its OWN binding",
+    "file (bindings_<controller_type>.json) so SteamVR's file-level controller_type",
+    "validation succeeds.  Pre-9.42 a single bindings_pico.json with",
+    "controller_type='pico_neo3_controller' was reused for all 6 controller_type",
+    "values; SteamVR silently rejected the binding for the other 5 (memory.md",
+    "section 10.49).  All 6 binding files share identical sources/poses; only",
+    "the top-level controller_type metadata differs.",
+    "",
+    "Action set / actions design (post-UDCAP migration, research/36 option B):",
+    "  * trigger_left/right + grip_left/right + menu_left/right + pose_left/right",
+    "  * No skeleton / finger-curl actions (gripper is binary).",
+    "  * pose_*_raw drives wrist EEF target (Pink IK) when prefer_controller_for_eef.",
+    "",
+    "default_bindings entries (post-9.42):",
+    "  * pico_controller         -> bindings_pico_controller.json",
+    "                              Pico Connect 6.x+ for PICO 4 / 4 Ultra.",
+    "                              Confirmed on the user's PICO 4 Ultra rig.",
+    "  * pico_phoenix_controller -> bindings_pico_phoenix.json",
+    "                              alternate Pico Connect report; futureproofing.",
+    "  * pico4_controller        -> bindings_pico4.json",
+    "                              alternate Pico Connect report; futureproofing.",
+    "  * pico_neo3_controller    -> bindings_pico_neo3.json",
+    "                              PICO Neo 3 / older Pico Connect 5.x.",
+    "  * oculus_touch            -> bindings_oculus_touch.json",
+    "                              Virtual Desktop emulation, or PICO Connect",
+    "                              'Compatibility Mode'.",
+    "  * knuckles                -> bindings_knuckles.json",
+    "                              Valve Index, also UDCAP's compat-layer."
+  ],
+  "app_key": "ust.teleop.gr1t2_gripper",
+  "action_sets": [
+    {
+      "name": "/actions/teleop",
+      "usage": "single"
+    }
+  ],
+  "actions": [
+    {
+      "name": "/actions/teleop/in/pose_left",
+      "type": "pose",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/teleop/in/pose_right",
+      "type": "pose",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/teleop/in/trigger_left",
+      "type": "vector1",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/teleop/in/trigger_right",
+      "type": "vector1",
+      "requirement": "mandatory"
+    },
+    {
+      "name": "/actions/teleop/in/grip_left",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/teleop/in/grip_right",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/teleop/in/menu_left",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/teleop/in/menu_right",
+      "type": "boolean",
+      "requirement": "optional"
+    }
+  ],
+  "default_bindings": [
+    {
+      "controller_type": "pico_controller",
+      "binding_url": "bindings_pico_controller.json"
+    },
+    {
+      "controller_type": "pico_phoenix_controller",
+      "binding_url": "bindings_pico_phoenix.json"
+    },
+    {
+      "controller_type": "pico4_controller",
+      "binding_url": "bindings_pico4.json"
+    },
+    {
+      "controller_type": "pico_neo3_controller",
+      "binding_url": "bindings_pico_neo3.json"
+    },
+    {
+      "controller_type": "oculus_touch",
+      "binding_url": "bindings_oculus_touch.json"
+    },
+    {
+      "controller_type": "knuckles",
+      "binding_url": "bindings_knuckles.json"
+    }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_us",
+      "/actions/teleop": "UST Teleop (Gripper)",
+      "/actions/teleop/in/pose_left": "Left controller pose",
+      "/actions/teleop/in/pose_right": "Right controller pose",
+      "/actions/teleop/in/trigger_left": "Left trigger (gripper close)",
+      "/actions/teleop/in/trigger_right": "Right trigger (gripper close)",
+      "/actions/teleop/in/grip_left": "Left grip (alternate close)",
+      "/actions/teleop/in/grip_right": "Right grip (alternate close)",
+      "/actions/teleop/in/menu_left": "Left menu (intervention toggle)",
+      "/actions/teleop/in/menu_right": "Right menu (intervention toggle)"
+    }
+  ]
+}

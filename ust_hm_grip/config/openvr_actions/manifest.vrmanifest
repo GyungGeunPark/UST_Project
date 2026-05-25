@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "SteamVR application manifest for the GR1T2 + 2-finger gripper teleop.",
+    "",
+    "The app_key MUST match actions.json.  At runtime we rewrite this file's",
+    "binary_path_windows to sys.executable (see GR1T2GripperDevice's",
+    "_generate_runtime_manifest helper) so SteamVR can resolve the binary",
+    "back to the active conda env's python.exe.",
+    "",
+    "is_dashboard_overlay = false makes this a regular VR app — when it has",
+    "input focus, SteamVR routes controller actions to OUR binding instead",
+    "of the dashboard's pointer (which is what the user wants when they",
+    "pull the trigger; we don't want it to click on imaginary windows)."
+  ],
+  "source": "builtin",
+  "applications": [
+    {
+      "app_key": "ust.teleop.gr1t2_gripper",
+      "launch_type": "binary",
+      "binary_path_windows": "python.exe",
+      "is_dashboard_overlay": false,
+      "action_manifest_path": "actions.json",
+      "strings": {
+        "en_us": {
+          "name": "UST Teleop GR1T2 Gripper",
+          "description": "GR1T2 + 2-finger gripper teleop with PICO controllers (option B migration)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+/* Isaac Sim Robot Control - Styles */
+
+:root {
+    --primary-color: #2196F3;
+    --primary-dark: #1976D2;
+    --success-color: #4CAF50;
+    --danger-color: #f44336;
+    --warning-color: #FF9800;
+    --bg-color: #1a1a2e;
+    --card-bg: #16213e;
+    --text-color: #eee;
+    --text-secondary: #aaa;
+    --border-radius: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--warning-color);
+}
+
+.status-dot.connected {
+    background: var(--success-color);
+}
+
+.status-dot.disconnected {
+    background: var(--danger-color);
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Panels */
+.control-panel, .status-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.control-panel > div, .status-panel > div {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+/* Input Section */
+.command-input-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#command-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #444;
+    border-radius: var(--border-radius);
+    background: #0f0f1a;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+#command-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.primary-btn {
+    padding: 12px 25px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+}
+
+.primary-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.quick-commands {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.hint {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.quick-cmd {
+    padding: 6px 12px;
+    background: #333;
+    border: 1px solid #444;
+    color: var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.quick-cmd:hover {
+    background: #444;
+}
+
+/* Direction Pad */
+.direction-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.direction-pad .row {
+    display: flex;
+    gap: 5px;
+}
+
+.dir-btn {
+    width: 70px;
+    height: 70px;
+    background: #333;
+    border: 2px solid #444;
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.dir-btn:hover {
+    background: #444;
+    border-color: var(--primary-color);
+}
+
+.dir-btn:active {
+    background: var(--primary-color);
+}
+
+.dir-btn.center {
+    background: var(--danger-color);
+}
+
+.dir-btn.center:hover {
+    background: #d32f2f;
+}
+
+.dir-btn.wide {
+    width: 150px;
+    height: 50px;
+}
+
+.forward-backward {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.distance-slider {
+    text-align: center;
+}
+
+.distance-slider input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Gripper Controls */
+.gripper-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.gripper-btn {
+    flex: 1;
+    padding: 20px;
+    background: #333;
+    border: 2px solid #444;
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.gripper-btn:hover {
+    border-color: var(--primary-color);
+    background: #444;
+}
+
+.gripper-btn.open:active {
+    background: var(--success-color);
+}
+
+.gripper-btn.close:active {
+    background: var(--warning-color);
+}
+
+/* Emergency Section */
+.emergency-section {
+    display: flex;
+    gap: 15px;
+}
+
+.emergency-btn {
+    flex: 2;
+    padding: 20px;
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.emergency-btn:hover {
+    background: #d32f2f;
+    transform: scale(1.02);
+}
+
+.emergency-btn.active {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.reset-btn {
+    flex: 1;
+    padding: 20px;
+    background: #333;
+    color: var(--text-color);
+    border: 2px solid #444;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.reset-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.reset-btn:not(:disabled):hover {
+    background: #444;
+    border-color: var(--success-color);
+}
+
+/* Status Grid */
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.status-item {
+    background: #0f0f1a;
+    padding: 15px;
+    border-radius: var(--border-radius);
+}
+
+.status-item .label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.status-item .value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+/* Command Log */
+.log-container {
+    height: 300px;
+    overflow-y: auto;
+    background: #0f0f1a;
+    border-radius: var(--border-radius);
+    padding: 10px;
+}
+
+.log-entry {
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    border-left: 3px solid #444;
+}
+
+.log-entry.success {
+    border-left-color: var(--success-color);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.log-entry.error {
+    border-left-color: var(--danger-color);
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.log-entry.pending {
+    border-left-color: var(--warning-color);
+    background: rgba(255, 152, 0, 0.1);
+}
+
+.log-entry .time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.log-entry .message {
+    margin-top: 3px;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    margin-top: 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
